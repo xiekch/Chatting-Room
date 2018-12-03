@@ -2,109 +2,120 @@ package xiekch.chattingroom.domain;
 
 import java.util.ArrayList;
 
-public class Storage{
+public class Storage {
     private ArrayList<Room> rooms;
     private ArrayList<User> users;
     private static Storage storage;
 
-    private Storage(){
+    private Storage() {
+        this.rooms=new ArrayList<Room>();
+        this.users=new ArrayList<User>();
     }
 
-    public static Storage getInstance(){
-        if(storage==null){
-            storage=new Storage();
+    public static Storage getInstance() {
+        if (storage == null) {
+            storage = new Storage();
         }
         return storage;
     }
 
-    public void createRoom(Room room){
+    public void createRoom(Room room) {
         this.rooms.add(room);
     }
 
-    public void createUser(User user){
+    public void createUser(User user) {
         this.users.add(user);
     }
 
-    public void deleteRoom(String roomName){
-        for(Room r:rooms){
-            if(r.getName()==roomName){
+    public void deleteRoom(String roomName) {
+        for (Room r : rooms) {
+            if (r.getName().equals(roomName)) {
                 this.rooms.remove(r);
             }
         }
     }
 
-    public void deleteRoom(Room room){
+    public void deleteRoom(Room room) {
         this.rooms.remove(room);
     }
 
-    public void deleteUser(String userName){
-        for(User u:users){
-            if(u.getName()==userName){
+    public void deleteUser(String userName) {
+        for (User u : users) {
+            if (u.getName().equals(userName)) {
                 this.users.remove(u);
             }
         }
     }
 
-    public void deleteUser(User user){
+    public void deleteUser(User user) {
         this.users.remove(user);
     }
 
-    public boolean isRoom(String roomName){
-        for(Room r:rooms){
-            if(r.getName()==roomName){
+    public boolean isRoom(String roomName) {
+        for (Room r : rooms) {
+            if (r.getName().equals(roomName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Room getRoom(String roomName){
-        for(Room r:rooms){
-            if(r.getName()==roomName){
+    public Room getRoom(String roomName) {
+        for (Room r : rooms) {
+            if (r.getName().equals(roomName)) {
                 return r;
             }
         }
         return null;
     }
 
-    public boolean isUser(String userName){
-        for(User u:users){
-            if(u.getName()==userName){
+    public boolean isUser(String userName) {
+        for (User u : users) {
+            if (u.getName().equals(userName)) {
                 return true;
             }
         }
         return false;
     }
 
-    public User getUser(String userName){
-        for(User u:users){
-            if(u.getName()==userName){
+    public boolean isUser(final User user) {
+        for (User u : users) {
+            if (u.getName().equals(user.getName()) && u.getPassword().equals(user.getPassword())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public User getUser(String userName) {
+        for (User u : users) {
+            if (u.getName().equals(userName)) {
                 return u;
             }
         }
         return null;
     }
 
-    public ArrayList<Room> getRooms(){
+    public ArrayList<Room> getRooms() {
         return this.rooms;
     }
 
-    public ArrayList<User> getUsers(){
+    public ArrayList<User> getUsers() {
         return this.users;
     }
 
-    public void changeRoom(String roomName,Room newRoom){
-        for(Room r:rooms){
-            if(r.getName()==roomName){
-                r=newRoom;
+    public void changeRoom(String roomName, Room newRoom) {
+        for (Room r : rooms) {
+            if (r.getName().equals(roomName)) {
+                r = newRoom;
             }
         }
     }
 
-    public void changeUser(String userName,User newUser){
-        for(User u:users){
-            if(u.getName()==userName){
-                u=newUser;
+    public void changeUser(String userName, User newUser) {
+        for (User u : users) {
+            if (u.getName().equals(userName)) {
+                u = newUser;
             }
         }
     }

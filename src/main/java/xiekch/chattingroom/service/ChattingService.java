@@ -9,32 +9,49 @@ public class ChattingService {
         this.storage = Storage.getInstance();
     }
 
-    public boolean userSignUp(final String userName, final String password) {
-        if (this.storage.isUser(userName)) {
-            this.storage.createUser(new User(userName, password));
-            return true;
-        } else {
-            return false;
+    public boolean userSignUp(final User user) {
+        if(user.getName().equals("")){
+            throw new RuntimeException("User's name must be filled!");
         }
+        if(user.getPassword().equals("")){
+            throw new RuntimeException("User's password must be filled!");
+        }
+        if (!Validator.userName.matcher(user.getName()).matches()) {
+            throw new RuntimeException("User's name is not valid!");
+        }
+        if (!Validator.userPassword.matcher(user.getPassword()).matches()) {
+            throw new RuntimeException("User's password is not valid!");
+        }
+
+        if (this.storage.isUser(user.getName())) {
+            throw new RuntimeException("User's name has been used!");
+        }
+
+        this.storage.createUser(user);
+        return true;
     }
 
-    public boolean roomSignUp(final String roomName) {
-        if (this.storage.isRoom(roomName)) {
-            this.storage.createRoom(new Room(roomName));
-            return true;
-        } else {
-            return false;
+    public boolean roomSignUp(final Room room) {
+        if(room.getName().equals("")){
+            throw new RuntimeException("Room's name must be filled!");
         }
+        if (!Validator.roomName.matcher(room.getName()).matches()) {
+            throw new RuntimeException("Room's name is not valid!");
+        }
+        if (this.storage.isRoom(room.getName())) {
+            throw new RuntimeException("Room's name has been used!");
+        }
+
+        this.storage.createRoom(room);
+        return true;
     }
 
-    public boolean userSignIn(final String userName, final String password) {
-        User user = this.storage.getUser(userName);
-        if (user != null && user.getName() == userName && user.getPassword() == password) {
-            return true;
-        } else {
-            return false;
+    public boolean userSignIn(final User user) {
+        if (!this.storage.isUser(user)) {
+            throw new RuntimeException("User's name or password is not correct!");
         }
 
+        return true;
     }
 
     public boolean userSpeak(final String userName, final String roomName, final String mess) {

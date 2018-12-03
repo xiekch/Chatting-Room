@@ -7,6 +7,8 @@ public class Room {
     private ArrayList<User> users;
     private ArrayList<Message> content;
 
+    public Room(){}
+
     public Room(String name){
         this.name=name;
     }
