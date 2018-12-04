@@ -7,19 +7,24 @@ import xiekch.chattingroom.domain.*;
 import xiekch.chattingroom.service.ChattingService;
 
 @Controller
-public class CreateUserController{
+public class CreateUserController {
     private ChattingService chatting;
 
-    public CreateUserController(){
-        this.chatting=new ChattingService();
+    public CreateUserController() {
+        this.chatting = new ChattingService();
     }
 
     @PostMapping("/create/user")
-    public String createUser(User user){
+    public String createUser(User user) {
         System.out.println("create user");
-        if(chatting.userSignUp(user)){
-            return "redirect:/rooms";
+        try {
+            if (chatting.userSignUp(user)) {
+                return "redirect:/rooms";
+            }
+        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
-        return "index";
+        return "redirect:/";
     }
 }
