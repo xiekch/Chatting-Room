@@ -16,10 +16,10 @@ public class ChattingService {
         if(user.getPassword().equals("")){
             throw new RuntimeException("User's password must be filled!");
         }
-        if (!Validator.userName.matcher(user.getName()).matches()) {
+        if (!Validator.userNameValid(user.getName())) {
             throw new RuntimeException("User's name is not valid!");
         }
-        if (!Validator.userPassword.matcher(user.getPassword()).matches()) {
+        if (!Validator.userPasswordValid(user.getPassword())) {
             throw new RuntimeException("User's password is not valid!");
         }
 
@@ -31,18 +31,21 @@ public class ChattingService {
         return true;
     }
 
-    public boolean roomSignUp(final Room room) {
+    public boolean roomSignUp(final Room room,final User user) {
+        if(!this.storage.isUser(user)){
+            throw new RuntimeException("User does'nt exit!");
+        }
         if(room.getName().equals("")){
             throw new RuntimeException("Room's name must be filled!");
         }
-        if (!Validator.roomName.matcher(room.getName()).matches()) {
+        if (!Validator.roomNameValid(room.getName())) {
             throw new RuntimeException("Room's name is not valid!");
         }
         if (this.storage.isRoom(room.getName())) {
             throw new RuntimeException("Room's name has been used!");
         }
 
-        this.storage.createRoom(room);
+        this.storage.createRoom(room,user);
         return true;
     }
 

@@ -66,16 +66,3 @@ h1{
 #autoFill{
     border: 1px solid black;
 }
-
-/* table */
-#table{
-    width: 80%;
-    margin: auto;
-    margin-bottom: 1em;
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-#table td{
-    border: 1px solid black;
-}

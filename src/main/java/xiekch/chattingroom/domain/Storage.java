@@ -19,7 +19,8 @@ public class Storage {
         return storage;
     }
 
-    public void createRoom(Room room) {
+    public void createRoom(Room room,User user) {
+        room.addUser(user);
         this.rooms.add(room);
     }
 

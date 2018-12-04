@@ -1,5 +1,7 @@
 package xiekch.chattingroom.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,14 +17,15 @@ public class CreateUserController {
     }
 
     @PostMapping("/create/user")
-    public String createUser(User user) {
+    public String createUser(User user, HttpSession session) {
         System.out.println("create user");
         try {
             if (chatting.userSignUp(user)) {
+                session.setAttribute("user", user);
                 return "redirect:/rooms";
             }
         } catch (RuntimeException e) {
-//            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
             e.printStackTrace();
         }
         return "redirect:/";
