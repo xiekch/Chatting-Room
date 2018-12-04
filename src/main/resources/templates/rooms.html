@@ -10,14 +10,15 @@
 </head>
 
 <body>
-    <header></header>
+    <header><a><span>log out</span></a></header>
 
     <div id="main">
         <h1>Rooms</h1>
+        <h2>Create a room</h2>
         <form id="form" action="/create/room" method="post">
             <div class="cell">
                 <span class="fieldName">Room name</span>
-                <input class="field" type="text" id="roomname" name="name"/>
+                <input class="field" type="text" id="roomname" name="name" />
                 <div class="error"></div>
             </div>
 
@@ -26,7 +27,7 @@
                 <input id="submit" class="button" type="submit" value="submit" />
             </div>
         </form>
-        <div id="rooms"></div>
+        <div id="rooms">a lot of rooms...</div>
 
     </div>
     <footer></footer>

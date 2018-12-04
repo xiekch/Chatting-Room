@@ -18,10 +18,6 @@ public class CreateRoomController {
 
     @PostMapping("/create/room")
     public String createRoom(@RequestParam("name") String name, HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/";
-        }
-
         System.out.println("create room");
         Room room = new Room(name);
         try {

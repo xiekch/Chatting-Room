@@ -11,7 +11,7 @@ public class IndexController {
     public String index(HttpSession session) {
         System.out.println("index");
         if (session.getAttribute("user") == null) {
-            return "redirect:/index";
+            return "index";
         } else {
             return "redirect:/rooms";
         }

@@ -17,6 +17,9 @@ h1{
     margin: 1em;
 }
 
+h2{
+    font-size: 22px;
+}
 
 /* form */
 #form{

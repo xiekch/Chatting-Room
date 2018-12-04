@@ -7,10 +7,10 @@ public class Room {
     private ArrayList<User> users;
     private ArrayList<Message> content;
 
-    public Room(){}
-
     public Room(String name){
         this.name=name;
+        this.users=new ArrayList<User>();
+        this.content=new ArrayList<Message>();
     }
 
     public String getName(){
