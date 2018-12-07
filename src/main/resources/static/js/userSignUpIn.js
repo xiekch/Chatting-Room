@@ -39,7 +39,7 @@ $(function () {
         if (validator.form[$(this).attr('id')].isValid($(this).val())) {
             $(this).parent().find('.error').text('');
         } else {
-            $(this).parent().find('.error').text(validator.getError(this.name));
+            $(this).parent().find('.error').text(validator.getError(this.id));
         }
     });
 
