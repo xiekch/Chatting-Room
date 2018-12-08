@@ -20,13 +20,19 @@ public class CreateUserController {
     public String createUser(User user, HttpSession session) {
         System.out.println("create user");
         try {
-            if (chatting.userSignUp(user)) {
+            if (chatting.userSignIn(user)) {
                 session.setAttribute("user", user);
                 return "redirect:/rooms";
             }
         } catch (RuntimeException e) {
-            // System.out.println(e.getMessage());
-            e.printStackTrace();
+            try {
+                if (chatting.userSignUp(user)) {
+                    session.setAttribute("user", user);;
+                    return "redirect:/rooms";
+                }
+            } catch (RuntimeException err) {
+                e.toString();
+            }
         }
         return "redirect:/";
     }
