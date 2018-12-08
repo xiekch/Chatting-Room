@@ -24,12 +24,17 @@ $(function () {
         if (validator.form[$(this).attr('id')].isValid($(this).val())) {
             $(this).parent().find('.error').text('');
         } else {
-            $(this).parent().find('.error').text(validator.getError(this.name));
+            $(this).parent().find('.error').text(validator.getError(this.id));
         }
     });
 
     $('#submit').click(function () {
         $('.field').blur();
         if (!validator.isValid()) return false;
+    });
+
+    $('#reset').click(function () {
+        $('.field').val('');
+        $('.error').text('');
     });
 });

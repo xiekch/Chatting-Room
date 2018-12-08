@@ -16,13 +16,6 @@ $(function () {
                     return this.status = /^\w{5,15}$/.test(data);
                 }
             }
-            // email: {
-            //     status: false,
-            //     error: 'Email is invalid',
-            //     isValid: function (data) {
-            //         return this.status = /^[\w\-]+@([\w\-]+\.)+[\w]{2,4}$/.test(data);
-            //     }
-            // }
         },
 
         isValid: function () {
@@ -46,5 +39,10 @@ $(function () {
     $('#submit').click(function () {
         $('.field').blur();
         if (!validator.isValid()) return false;
+    });
+
+    $('#reset').click(function () {
+        $('.field').val('');
+        $('.error').text('');
     });
 });
