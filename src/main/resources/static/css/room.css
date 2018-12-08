@@ -66,3 +66,15 @@ h1{
 #autoFill{
     border: 1px solid black;
 }
+
+#back {
+    width: 150px;
+    background-color: coral;
+    border: none;
+    height: 30px;
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
