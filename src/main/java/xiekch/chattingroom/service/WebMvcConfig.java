@@ -12,6 +12,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
         registry.addInterceptor(new UserInterceptor()).addPathPatterns("/rooms");
         registry.addInterceptor(new UserInterceptor()).addPathPatterns("/room");
         registry.addInterceptor(new UserInterceptor()).addPathPatterns("/create/room");
-
+        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/logOut");
     }
 }

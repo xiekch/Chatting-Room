@@ -65,3 +65,14 @@ h2{
     background-color: #2E7BEB;
     border: none;
 }
+
+#logOut {
+    width: 100px;
+    background-color: coral;
+    border: none;
+    height: 30px;
+}
+
+.button {
+    cursor: pointer;
+}

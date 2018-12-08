@@ -79,3 +79,7 @@ h1{
 #table td{
     border: 1px solid black;
 }
+
+.button {
+    cursor: pointer;
+}
