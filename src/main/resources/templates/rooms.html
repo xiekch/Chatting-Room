@@ -28,7 +28,27 @@
                 <input id="submit" class="button" type="submit" value="submit" />
             </div>
         </form>
-        <div id="rooms">a lot of rooms...</div>
+        <div id="rooms">
+            <div id="participated">
+                <h3>Participated Rooms</h3>
+                <form action="/changeRoom" method="POST">
+                    <div class="participated" th:each="participatedRoom: ${participatedRooms}">
+                        <output th:text="${participatedRoom.name}"></output>
+                        <input class="button" type="submit" name="${participatedRoom.name + 'enter'}" value="enter" />
+                        <input class="button" type="submit" name="${participatedRoom.name + 'quit'}" value="quit" />
+                    </div>
+                </form>
+            </div>
+            <div id="rest">
+                <h3>Existed but Not Participated Rooms</h3>
+                <form action="/changeRoom" method="POST">
+                    <div class="rest" th:each="restRoom: ${restRooms}">
+                        <output th:text="${restRoom.name}"></output>
+                        <input class="button" type="submit" name="${restRoom.name + 'join'}" value="join" />
+                    </div>
+                </form>
+            </div>
+        </div>
 
     </div>
     <footer></footer>
