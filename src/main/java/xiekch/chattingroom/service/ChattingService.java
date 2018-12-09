@@ -73,10 +73,28 @@ public class ChattingService {
         }
     }
 
-    public void userQuitRoom(Room room,User user){
-        if(room.isParticipator(user)){
+    public void userQuitRoom(Room room, User user) {
+        if (room.isParticipator(user)) {
             room.removeUser(user);
         }
+    }
+
+    public boolean isUser(User user) {
+        return this.storage.isUser(user);
+    }
+
+    public boolean isRoomUser(Room room, User user) {
+        if (this.storage.isRoom(room.getName()) && this.storage.isUser(user) && room.isParticipator(user)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isRoomUser(String roomName, User user) {
+        if (this.storage.isRoom(roomName) && this.storage.isUser(user) && this.storage.getRoom(roomName).isParticipator(user)) {
+            return true;
+        }
+        return false;
     }
 
     public boolean userSpeak(final String userName, final String roomName, final String mess) {
@@ -86,6 +104,14 @@ public class ChattingService {
         } else {
             return false;
         }
+    }
+
+    public Room getRoom(String roomName){
+        if(!this.storage.isRoom(roomName)){
+            throw new RuntimeException("Room does'nt exit!");
+        }
+
+        return this.storage.getRoom(roomName);
     }
 
     public ArrayList<Room> getParticipatedRooms(User user) {
