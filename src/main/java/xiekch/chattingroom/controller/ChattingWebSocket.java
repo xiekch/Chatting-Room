@@ -13,7 +13,7 @@ import xiekch.chattingroom.service.ChattingService;
 public class ChattingWebSocket{
 
     @PostMapping("chatting")
-    public String chatting(P){
-
+    public String chatting(){
+        return "";
     }
 }
