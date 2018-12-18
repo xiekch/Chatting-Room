@@ -16,7 +16,8 @@ public class CreateRoomController {
         Room room = new Room(name);
         try {
             if (ChattingService.getInstance().roomSignUp(room, (User) session.getAttribute("user"))) {
-                return "redirect:/room?name=" + room.getName();
+                //return "redirect:/room?name=" + room.getName();
+                return "redirect:/rooms";
             }
         } catch (RuntimeException e) {
             // System.out.println(e.getMessage());

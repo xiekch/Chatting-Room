@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import xiekch.chattingroom.domain.*;
 import xiekch.chattingroom.service.ChattingService;
 
-@ServerEndpoint("/websocket")
-public class ChattingWebSocket{
+// @ServerEndpoint("/websocket")
+// // public class ChattingWebSocket{
+//     @PostMapping("chatting")
+//     public String chatting(P){
 
-    @PostMapping("chatting")
-    public String chatting(P){
-
-    }
-}
+//     }
+// }

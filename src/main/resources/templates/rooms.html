@@ -11,7 +11,9 @@
 </head>
 
 <body>
-    <header><form action="/logOut" method="POST"><input id="logOut" class="button" type="submit" value="Log Out" /></form></header>
+    <header>
+        <form action="/logOut" method="POST"><input id="logOut" class="button" type="submit" value="Log Out" /></form>
+    </header>
 
     <div id="main">
         <h1>Rooms</h1>
@@ -31,22 +33,34 @@
         <div id="rooms">
             <div id="participated">
                 <h3>Participated Rooms</h3>
-                <form action="/changeRoom" method="POST">
+                <div class="participated" th:each="participatedRoom: ${participatedRooms}">
+                    <output th:text="${participatedRoom.name}"></output>
+                    <div>
+                        <input class="enterButton" type="submit" th:name="${participatedRoom.name}" value="enter" />
+                        <input class="quitButton" type="submit" th:name="${participatedRoom.name}" value="quit" />
+                    </div>
+                </div>
+                <!-- <form action="/changeRoom" method="POST">
                     <div class="participated" th:each="participatedRoom: ${participatedRooms}">
                         <output th:text="${participatedRoom.name}"></output>
                         <input class="button" type="submit" name="${participatedRoom.name + 'enter'}" value="enter" />
                         <input class="button" type="submit" name="${participatedRoom.name + 'quit'}" value="quit" />
                     </div>
-                </form>
+                </form> -->
             </div>
             <div id="rest">
                 <h3>Existed but Not Participated Rooms</h3>
-                <form action="/changeRoom" method="POST">
+                <div class="rest" th:each="restRoom: ${restRooms}">
+                    <output th:text="${restRoom.name}"></output>
+                    <input class="joinButton" type="submit" th:name="${restRoom.name}" value="join" />
+                </div>
+
+                <!-- <form action="/changeRoom" method="POST">
                     <div class="rest" th:each="restRoom: ${restRooms}">
                         <output th:text="${restRoom.name}"></output>
                         <input class="button" type="submit" name="${restRoom.name + 'join'}" value="join" />
                     </div>
-                </form>
+                </form> -->
             </div>
         </div>
 

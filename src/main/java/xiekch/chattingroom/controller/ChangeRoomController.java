@@ -13,11 +13,11 @@ public class ChangeRoomController {
 
     @PostMapping("change/room/enter")
     public String enterRoom(@RequestParam("roomName") String roomName, HttpSession session, Model model) {
-        Room room = ChattingService.getInstance().getRoom(roomName);
-        User user = (User) session.getAttribute("user");
-        ChattingService.getInstance().userEnterRoom(room, user);
+        // Room room = ChattingService.getInstance().getRoom(roomName);
+        // User user = (User) session.getAttribute("user");
+        // ChattingService.getInstance().userEnterRoom(room, user);
 
-        return "redirect:/room";
+        return "redirect:/room?roomName=" + roomName;
     }
 
     @PostMapping("change/room/quit")
@@ -26,6 +26,15 @@ public class ChangeRoomController {
         User user = (User) session.getAttribute("user");
         ChattingService.getInstance().userQuitRoom(room, user);
         
+        return "redirect:/rooms";
+    }
+
+    @PostMapping("change/room/join")
+    public String joinRoom(@RequestParam("roomName") String roomName, HttpSession session, Model model) {
+        Room room = ChattingService.getInstance().getRoom(roomName);
+        User user = (User) session.getAttribute("user");
+        ChattingService.getInstance().userEnterRoom(room, user);
+
         return "redirect:/rooms";
     }
 }
