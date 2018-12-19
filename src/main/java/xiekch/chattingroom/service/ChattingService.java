@@ -76,6 +76,9 @@ public class ChattingService {
     public void userQuitRoom(Room room, User user) {
         if (room.isParticipator(user)) {
             room.removeUser(user);
+            if (room.isEmpty()) {
+                storage.deleteRoom(room);
+            }
         }
     }
 

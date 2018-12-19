@@ -11,16 +11,6 @@ import xiekch.chattingroom.service.ChattingService;
 
 @Controller
 public class ChangeRoomController {
-
-    // @PostMapping("change/room/enter")
-    // public String enterRoom(@RequestParam("roomName") String roomName, HttpSession session, Model model) {
-    //     // Room room = ChattingService.getInstance().getRoom(roomName);
-    //     // User user = (User) session.getAttribute("user");
-    //     // ChattingService.getInstance().userEnterRoom(room, user);
-
-    //     return "redirect:/room?roomName=" + roomName;
-    // }
-
     @PostMapping("change/room/quit")
     public String quitRoom(@RequestBody String request, HttpSession session, Model model) {
         //deal with the request data posted by form

@@ -37,4 +37,7 @@ public class Room {
         return this.users.contains(user);
     }
 
+    public boolean isEmpty() {
+        return users.isEmpty();
+    }
 }
