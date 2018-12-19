@@ -37,25 +37,4 @@ $(function () {
         $('.field').val('');
         $('.error').text('');
     });
-
-    //room button post method
-    $('.enterButton').click(function () {
-        var name = $(this).attr('name');
-        $.post('change/room/enter', {'roomName': name}, function(data) {
-            $(document).find('html').html(data);
-        });
-    });
-    $('.quitButton').click(function () {
-        var name = $(this).attr('name');
-        $.post('change/room/quit', {'roomName': name}, function(data) {
-            $(document).find('html').html(data);
-        });
-    });
-    $('.joinButton').click(function () {
-        var name = $(this).attr('name');
-        $.post('change/room/join', {'roomName': name}, function(data) {
-            $(document).find('html').html(data);
-        });
-    });
-
 });

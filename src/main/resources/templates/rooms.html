@@ -1,71 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Rooms</title>
-    <meta name="author" content="xiekch">
-    <link rel="stylesheet" href="/css/rooms.css">
+    <meta name="author" content="xiekch" />
+    <link rel="stylesheet" href="/css/rooms.css" />
     <script src="/js/jquery-3.3.1.js"></script>
     <script src="/js/roomSignUpIn.js"></script>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <form action="/logOut" method="POST"><input id="logOut" class="button" type="submit" value="Log Out" /></form>
+      <form action="/logOut" method="POST">
+        <input id="logOut" class="button" type="submit" value="Log Out" />
+      </form>
     </header>
 
     <div id="main">
-        <h1>Rooms</h1>
-        <h2>Create a room</h2>
-        <form id="form" action="/create/room" method="post">
-            <div class="cell">
-                <span class="fieldName">Room name</span>
-                <input class="field" type="text" id="roomname" name="name" />
-                <div class="error"></div>
-            </div>
-
-            <div>
-                <input id="reset" class="button" type="button" value="reset" />
-                <input id="submit" class="button" type="submit" value="submit" />
-            </div>
-        </form>
-        <div id="rooms">
-            <div id="participated">
-                <h3>Participated Rooms</h3>
-                <div class="participated" th:each="participatedRoom: ${participatedRooms}">
-                    <output th:text="${participatedRoom.name}"></output>
-                    <div>
-                        <input class="enterButton" type="submit" th:name="${participatedRoom.name}" value="enter" />
-                        <input class="quitButton" type="submit" th:name="${participatedRoom.name}" value="quit" />
-                    </div>
-                </div>
-                <!-- <form action="/changeRoom" method="POST">
-                    <div class="participated" th:each="participatedRoom: ${participatedRooms}">
-                        <output th:text="${participatedRoom.name}"></output>
-                        <input class="button" type="submit" name="${participatedRoom.name + 'enter'}" value="enter" />
-                        <input class="button" type="submit" name="${participatedRoom.name + 'quit'}" value="quit" />
-                    </div>
-                </form> -->
-            </div>
-            <div id="rest">
-                <h3>Existed but Not Participated Rooms</h3>
-                <div class="rest" th:each="restRoom: ${restRooms}">
-                    <output th:text="${restRoom.name}"></output>
-                    <input class="joinButton" type="submit" th:name="${restRoom.name}" value="join" />
-                </div>
-
-                <!-- <form action="/changeRoom" method="POST">
-                    <div class="rest" th:each="restRoom: ${restRooms}">
-                        <output th:text="${restRoom.name}"></output>
-                        <input class="button" type="submit" name="${restRoom.name + 'join'}" value="join" />
-                    </div>
-                </form> -->
-            </div>
+      <h1>Rooms</h1>
+      <h2>Create a room</h2>
+      <form id="form" action="/create/room" method="post">
+        <div class="cell">
+          <span class="fieldName">Room name</span>
+          <input class="field" type="text" id="roomname" name="name" />
+          <div class="error"></div>
         </div>
 
+        <div>
+          <input id="reset" class="button" type="button" value="reset" />
+          <input id="submit" class="button" type="submit" value="submit" />
+        </div>
+      </form>
+      <div id="rooms">
+        <div id="participated">
+          <h3>Participated Rooms</h3>
+          <div
+            class="participated"
+            th:each="participatedRoom: ${participatedRooms}"
+          >
+            <output th:text="${participatedRoom.name}"></output>
+            <div>
+              <!--the enter button, link to specific url-->
+              <a th:href="@{'/room?roomName='+${participatedRoom.name}}"
+                ><button class="enterButton">enter</button></a
+              >
+              <!--use form to post a quit request-->
+              <form action="change/room/quit" method="post">
+                <input
+                  class="quitButton"
+                  type="submit"
+                  th:name="${participatedRoom.name}"
+                  value="quit"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="rest">
+          <h3>Existed but Not Participated Rooms</h3>
+          <!--use form to post a join request-->
+          <form action="change/room/join" method="post">
+            <div class="rest" th:each="restRoom: ${restRooms}">
+              <output th:text="${restRoom.name}"></output>
+              <input
+                class="joinButton"
+                type="submit"
+                th:name="${restRoom.name}"
+                value="join"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
     <footer></footer>
-</body>
-
+  </body>
 </html>
