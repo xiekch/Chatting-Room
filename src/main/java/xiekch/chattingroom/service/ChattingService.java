@@ -94,23 +94,32 @@ public class ChattingService {
     }
 
     public boolean isRoomUser(String roomName, User user) {
-        if (this.storage.isRoom(roomName) && this.storage.isUser(user) && this.storage.getRoom(roomName).isParticipator(user)) {
+        if (this.storage.isRoom(roomName) && this.storage.isUser(user)
+                && this.storage.getRoom(roomName).isParticipator(user)) {
             return true;
         }
         return false;
     }
 
-    public boolean userSpeak(final String userName, final String roomName, final String mess) {
-        if (this.storage.isRoom(roomName) && this.storage.isUser(userName)) {
-            this.storage.getRoom(roomName).addMessage(this.storage.getUser(userName).speak(mess));
-            return true;
-        } else {
-            return false;
+    public Message userSpeak(final String userName, final String roomName, final String mess) {
+        if (!this.storage.isRoom(roomName)) {
+            throw new RuntimeException("Room does'nt exit!");
         }
+        if (!this.storage.isUser(userName)) {
+            throw new RuntimeException("User does'nt exit!");
+        }
+        User user = this.storage.getUser(userName);
+        if (!this.storage.getRoom(roomName).isParticipator(user)) {
+            throw new RuntimeException("User is not in the room!");
+        }
+        
+        Message message = user.speak(mess);
+        this.storage.getRoom(roomName).addMessage(message);
+        return message;
     }
 
-    public Room getRoom(String roomName){
-        if(!this.storage.isRoom(roomName)){
+    public Room getRoom(String roomName) {
+        if (!this.storage.isRoom(roomName)) {
             throw new RuntimeException("Room does'nt exit!");
         }
 
