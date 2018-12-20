@@ -112,8 +112,8 @@ public class ChattingService {
         if (!this.storage.getRoom(roomName).isParticipator(user)) {
             throw new RuntimeException("User is not in the room!");
         }
-        
-        Message message = user.speak(mess);
+
+        Message message = user.speak(mess, roomName);
         this.storage.getRoom(roomName).addMessage(message);
         return message;
     }

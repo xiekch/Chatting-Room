@@ -23,6 +23,7 @@ public class ChattingWebSocket {
 
     @OnOpen
     public void OnOpen(@RequestParam("roomName") String roomName, Session session, HttpSession httpSession) {
+        System.out.println("connecting...");
         this.userSession = session;
         webSocketSet.add(this);
         webSocketMap.put(session, this);
@@ -44,7 +45,8 @@ public class ChattingWebSocket {
 
     @OnMessage
     public void OnMessage(String message, Session session) throws Exception {
-        sendMessageToRoom(session, message);;
+        System.out.println(message);
+        sendMessageToRoom(session, message);
     }
 
     @OnError
