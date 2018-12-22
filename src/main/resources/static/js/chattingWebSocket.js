@@ -1,3 +1,5 @@
+'use strict'
+
 $(function () {
     var socket = new SockJS('/websocket');
     var stompClient = Stomp.over(socket);
@@ -10,7 +12,11 @@ $(function () {
         stompClient.subscribe('/userChat/' + roomName, function (data) {
             //只接受非自己的消息，左侧显示
             if (data.headers.user !== userName) {
-                var displayMessage = $("<div class='received'>" + data.body + "</div>");
+                var html = "<div class='received'>" + 
+                    "<div class='receivedUser'>" + data.headers.user + "</div>" +
+                    "<div class='receivedMessage'>" + data.body + "</div>";
+                //var displayMessage = $("<div class='received'>" + data.body + "</div>");
+                var displayMessage = $(html);
                 $('#content').append(displayMessage);
                 $('#content').scrollTop($('#content').prop('scrollHeight')); //收g消息后滚动到底
             }
