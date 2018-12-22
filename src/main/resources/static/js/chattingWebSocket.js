@@ -12,6 +12,7 @@ $(function () {
             if (data.headers.subscription !== userName) {
                 var displayMessage = $("<div class='message'>" + $('#message').val() + "</div>");
                 $('#content').append(displayMessage);
+                $('#content').scrollTop($('#content').prop('scrollHeight')); //收g消息后滚动到底
             }
         }, {
             id: userName
@@ -22,8 +23,9 @@ $(function () {
         if ($('#message').val() !== '') {
             stompClient.send('/app/' + roomName, {sourceUser: userName}, $('#message').val());
             //发出消息右侧显示
-            var displayMessage = $("<div class='message'>" + $('#message').val() + "</div>");
+            var displayMessage = $("<div class='message'>" + $('#message').val() + "</div>").css('align-self', 'flex-end');
             $('#content').append(displayMessage);
+            $('#content').scrollTop($('#content').prop('scrollHeight')); //发消息后滚动到底
             $('#message').val('');
         }
     })
