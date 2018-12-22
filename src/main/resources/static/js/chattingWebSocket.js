@@ -9,8 +9,10 @@ $(function () {
         //用userName作为id
         stompClient.subscribe('/userChat/' + roomName, function (data) {
             //只接受非自己的消息，左侧显示
-            if (data.headers.subscription !== userName) {
-                var displayMessage = $("<div class='message'>" + $('#message').val() + "</div>");
+            // console.log(data);
+            var mess=JSON.parse(data.body);
+            if (mess.userName !== userName) {
+                var displayMessage = $("<div class='message'>" + mess.message + "</div>");
                 $('#content').append(displayMessage);
             }
         }, {
@@ -20,7 +22,7 @@ $(function () {
 
     $('#submit').click(function () {
         if ($('#message').val() !== '') {
-            stompClient.send('/app/' + roomName, {sourceUser: userName}, $('#message').val());
+            stompClient.send('/app/userChat/' + roomName, {sourceUser: userName}, $('#message').val());
             //发出消息右侧显示
             var displayMessage = $("<div class='message'>" + $('#message').val() + "</div>");
             $('#content').append(displayMessage);

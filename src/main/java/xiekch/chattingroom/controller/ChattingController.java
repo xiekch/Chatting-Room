@@ -18,7 +18,7 @@ public class ChattingController{
     @Autowired
     private SimpMessagingTemplate template;
 
-     @MessageMapping("/{roomName}")
+    @MessageMapping("/userChat/{roomName}")
     public void userChat(String message, @DestinationVariable String roomName){//此处应修改 //@PathVariable("roomName")String roomName,
         System.out.println(message);
         this.template.convertAndSend("/userChat/" + roomName, message);
