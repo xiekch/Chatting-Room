@@ -91,3 +91,13 @@ h2 {
     color: blue;
     font-style: italic;
 }
+
+.message {
+    margin: 5px 5px 15px 5px;
+    text-align: left;
+    border: solid;
+    word-break: break-word;
+    max-width: 220px;
+    min-width: 0;
+    width: fit-content;
+}
