@@ -11,6 +11,6 @@ $(function () {
     });
 
     $('#submit').click(function () {
-        stompClient.send('/app/userChat', {},$('#message').val());
+        stompClient.send('/app/' + roomName, {},$('#message').val());
     })
 });

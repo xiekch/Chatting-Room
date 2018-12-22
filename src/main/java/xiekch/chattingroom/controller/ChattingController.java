@@ -1,5 +1,6 @@
 package xiekch.chattingroom.controller;
 
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,10 @@ public class ChattingController{
     @Autowired
     private SimpMessagingTemplate template;
 
-     @MessageMapping("/userChat")
-    public void userChat(String message){//此处应修改 //@PathVariable("roomName")String roomName,
+     @MessageMapping("/{roomName}")
+    public void userChat(String message, @DestinationVariable String roomName){//此处应修改 //@PathVariable("roomName")String roomName,
         System.out.println(message);
-        this.template.convertAndSend("/userChat/wechat",message);
+        this.template.convertAndSend("/userChat/" + roomName, message);
     }
 
 }
