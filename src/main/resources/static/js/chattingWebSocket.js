@@ -12,5 +12,6 @@ $(function () {
 
     $('#submit').click(function () {
         stompClient.send('/app/' + roomName, {},$('#message').val());
+        $('#message').val('');
     })
 });

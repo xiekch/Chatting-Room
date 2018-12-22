@@ -16,7 +16,8 @@
     <div id="main">
         <header><a href="/rooms"><button id="back">Back to the index</button></a></header>
 
-        <h1>Room</h1>
+        <h1 th:text="${room.name}"></h1>
+        <h2 th:text="'user:' + ${userName}"></h2>
     </div>
     <p id="content"></p>
     <!-- <form action="/websocket" method="POST">

@@ -16,6 +16,7 @@ public class RoomsController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("participatedRooms", ChattingService.getInstance().getParticipatedRooms(user));
         model.addAttribute("restRooms",ChattingService.getInstance().getRestRooms(user));
+        model.addAttribute("user", user);
         return "rooms";
     }
 }

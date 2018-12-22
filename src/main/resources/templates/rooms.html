@@ -41,7 +41,7 @@
             <output th:text="${participatedRoom.name}"></output>
             <div>
               <!--the enter button, link to specific url-->
-              <a th:href="@{'/room?roomName='+${participatedRoom.name}}"
+              <a th:href="@{'/room?roomName='+${participatedRoom.name}+'&user='+${user.name}}"
                 ><button class="enterButton">enter</button></a
               >
               <!--use form to post a quit request-->
