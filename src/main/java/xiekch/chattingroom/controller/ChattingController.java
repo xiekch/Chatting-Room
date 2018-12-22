@@ -1,14 +1,19 @@
 package xiekch.chattingroom.controller;
 
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 
 import xiekch.chattingroom.domain.*;
 import xiekch.chattingroom.service.ChattingService;
@@ -19,9 +24,9 @@ public class ChattingController{
     private SimpMessagingTemplate template;
 
      @MessageMapping("/{roomName}")
-    public void userChat(String message, @DestinationVariable String roomName){//此处应修改 //@PathVariable("roomName")String roomName,
+    public void userChat(String message, @DestinationVariable String roomName, @Headers Map<String, Object> headers){
         System.out.println(message);
-        this.template.convertAndSend("/userChat/" + roomName, message);
+        this.template.convertAndSend("/userChat/" + roomName, message, headers);
     }
 
 }
