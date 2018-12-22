@@ -15,20 +15,23 @@ public class ChangeRoomController {
     public String quitRoom(@RequestBody String request, HttpSession session, Model model) {
         //deal with the request data posted by form
         String roomName = request.substring(0, request.indexOf('='));
-        Room room = ChattingService.getInstance().getRoom(roomName);
         User user = (User) session.getAttribute("user");
+        Room room = ChattingService.getInstance().getRoom(roomName);
         ChattingService.getInstance().userQuitRoom(room, user);
-
+        
         return "redirect:/rooms";
     }
 
     @PostMapping("change/room/join")
     public String joinRoom(@RequestBody String request, HttpSession session, Model model) {
         String roomName = request.substring(0, request.indexOf('='));
-        Room room = ChattingService.getInstance().getRoom(roomName);
         User user = (User) session.getAttribute("user");
-        ChattingService.getInstance().userEnterRoom(room, user);
-
+        try {
+            Room room = ChattingService.getInstance().getRoom(roomName);
+            ChattingService.getInstance().userEnterRoom(room, user);
+        } catch (Exception e) {
+            System.out.println("room doesn't exist");
+        }
         return "redirect:/rooms";
     }
 }
