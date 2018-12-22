@@ -10,7 +10,7 @@ $(function () {
         stompClient.subscribe('/userChat/' + roomName, function (data) {
             //只接受非自己的消息，左侧显示
             if (data.headers.user !== userName) {
-                var displayMessage = $("<div class='message'>" + data.body + "</div>");
+                var displayMessage = $("<div class='received'>" + data.body + "</div>");
                 $('#content').append(displayMessage);
                 $('#content').scrollTop($('#content').prop('scrollHeight')); //收g消息后滚动到底
             }
@@ -21,7 +21,7 @@ $(function () {
         if ($('#message').val() !== '') {
             stompClient.send('/app/' + roomName, {'user': userName}, $('#message').val());
             //发出消息右侧显示
-            var displayMessage = $("<div class='message'>" + $('#message').val() + "</div>").css('align-self', 'flex-end');
+            var displayMessage = $("<div class='sent'>" + $('#message').val() + "</div>");
             $('#content').append(displayMessage);
             $('#content').scrollTop($('#content').prop('scrollHeight')); //发消息后滚动到底
             $('#message').val('');
