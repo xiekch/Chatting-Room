@@ -24,9 +24,9 @@ public class ChattingController{
     private SimpMessagingTemplate template;
 
      @MessageMapping("/{roomName}")
-    public void userChat(String message, @DestinationVariable String roomName, @Headers Map<String, Object> headers){
+    public void userChat(String message, @DestinationVariable String roomName/*, @Headers Map<String, Object> headers*/){
         System.out.println(message);
-        this.template.convertAndSend("/userChat/" + roomName, message, headers);
+        this.template.convertAndSend("/userChat/" + roomName, message/*, headers*/);
     }
 
 }
