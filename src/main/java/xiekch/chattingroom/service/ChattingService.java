@@ -86,6 +86,10 @@ public class ChattingService {
         return this.storage.isUser(user);
     }
 
+    public boolean isRoom(String roomName){
+        return this.storage.isRoom(roomName);
+    }
+
     public boolean isRoomUser(Room room, User user) {
         if (this.storage.isRoom(room.getName()) && this.storage.isUser(user) && room.isParticipator(user)) {
             return true;

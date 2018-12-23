@@ -24,7 +24,7 @@ public class ChattingController {
     private SimpMessagingTemplate template;
 
     @ResponseBody
-    @MessageMapping("/{roomName}")
+    @MessageMapping("/room/{roomName}")
     public void userChat(@RequestBody Message message, @DestinationVariable String roomName) {
         ChattingService.getInstance().userSpeak(message.getuserName(), message.getRoomName(), message.getMessage(),
                 message.getDate());
