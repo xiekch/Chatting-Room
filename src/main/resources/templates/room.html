@@ -20,7 +20,7 @@
         <h2 th:text="'user: ' + ${userName}"></h2>
     </div>
     <div id="content">
-        <div th:each="message: ${history}" th:class="${message.user} == userName ? 'sent' : 'received'"
+        <div th:each="message: ${room.content}" th:class="${message.user} == userName ? 'sent' : 'received'"
         th:text="${message.user} == userName ? ${message.text}">
         <div th:if="${message.user} != userName" class="receivedUser" th:text="${message.user}"></div>
         <div th:if="${message.user} != userName" class="receivedMessage" th:text="${message.text}"></div>
