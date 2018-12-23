@@ -27,13 +27,11 @@ $(function () {
                 var html = "<div class='received'>" +
                     "<div class='receivedUser'>" + message.userName + "</div>" +
                     "<div class='receivedMessage'>" + message.message + "</div>";
+
                 var displayMessage = $(html);
                 $('#content').append(displayMessage);
-                $('#content').scrollTop($('#content').prop('scrollHeight')); //收g消息后滚动到底
+                $('#content').scrollTop($('#content').prop('scrollHeight')); //收到消息后滚动到底
             }
-            var displayMessage = $(html);
-            $('#content').append(displayMessage);
-            $('#content').scrollTop($('#content').prop('scrollHeight')); //收到消息后滚动到底
         });
 
     });
@@ -47,5 +45,20 @@ $(function () {
                 roomName: roomName
             }));
         }
+
+
+        //发出消息右侧显示
+        //间隔大于2分钟则显示时间
+        var newTime = new Date();
+        if (newTime - time > 120000) {
+            var timeMatch = /\d{2}:\d{2}/;
+            var displayTime = $("<div class='time'>" + newTime.toTimeString().match(timeMatch) + "</div>");
+            $('#content').append(displayTime);
+        }
+        time = newTime;
+        var displayMessage = $("<div class='sent'>" + $('#message').val() + "</div>");
+        $('#content').append(displayMessage);
+        $('#content').scrollTop($('#content').prop('scrollHeight')); //发消息后滚动到底
+        $('#message').val('');
     });
 });
