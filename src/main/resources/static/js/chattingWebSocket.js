@@ -7,17 +7,7 @@ $(function () {
         console.log('Connected: ' + frame);
         //用户聊天订阅
         //用userName作为id
-        stompClient.subscribe('/userChat/' + roomName, function (data) {
-            //只接受非自己的消息，左侧显示
-            // console.log(data);
-            var mess=JSON.parse(data.body);
-            if (mess.userName !== userName) {
-                var displayMessage = $("<div class='message'>" + mess.message + "</div>");
-                $('#content').append(displayMessage);
-            }
-        }, {
-            id: userName
-        });
+        
     });
 
     $('#submit').click(function () {
