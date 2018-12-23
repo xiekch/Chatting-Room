@@ -16,21 +16,21 @@
     <div id="main">
         <header><a href="/rooms"><button id="back">Back to the index</button></a></header>
 
-        <h1 th:text="${room.name}"></h1>
+        <h1 th:text="${room.getName()}"></h1>
         <h2 th:text="'user: ' + ${userName}"></h2>
     </div>
     <div id="content">
-        <div th:each="message: ${room.content}" th:class="${message.user} == userName ? 'sent' : 'received'"
-        th:text="${message.user} == userName ? ${message.text}">
-        <div th:if="${message.user} != userName" class="receivedUser" th:text="${message.user}"></div>
-        <div th:if="${message.user} != userName" class="receivedMessage" th:text="${message.text}"></div>
-    </div>
+        <div th:each="message: ${room.getMessage()}" th:class="${message.getuserName() == userName} ? 'sent' : 'received'">
+            <div th:if="${message.getuserName() == userName}" class="sent" th:remove="tag" th:text="${message.getuserName()}"></div>
+            <div th:if="${message.getuserName() != userName}" class="receivedUser" th:text="${message.getuserName()}"></div>
+            <div th:if="${message.getuserName() != userName}" class="receivedMessage" th:text="${message.getMessage()}"></div>
+        </div>
     </div>
     <!-- <form action="/websocket" method="POST">
     <input type="text"/>
     <input type="submit">
     </form> -->
-    <input id="message" type="text"/>
+    <input id="message" type="text" />
     <input id="submit" type="submit" value="发送">
 </body>
 

@@ -115,7 +115,7 @@ h2 {
 .received {
     margin: 5px 5px 15px 5px;
     text-align: left;
-    word-break: break-word;
+    word-wrap: break-word;
     max-width: 220px;
     min-width: 0;
 }
