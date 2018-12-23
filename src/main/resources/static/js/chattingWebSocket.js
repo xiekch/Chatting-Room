@@ -10,45 +10,42 @@ $(function () {
         console.log('Connected: ' + frame);
         //用户聊天订阅
         stompClient.subscribe('/userChat/' + roomName, function (data) {
-            //只接受非自己的消息，左侧显示
-            if (data.headers.user !== userName) {
-                //间隔大于2分钟则显示时间
-                var newTime = new Date();
-                if (newTime - time > 120000) {
-                    var timeMatch = /\d{2}:\d{2}/;
-                    var displayTime = $("<div class='time'>" + newTime.toTimeString().match(timeMatch) + "</div>");
-                    $('#content').append(displayTime);
-                }
-                time = newTime;
-
-                var html = "<div class='received'>" +
-                    "<div class='receivedUser'>" + data.headers.user + "</div>" +
-                    "<div class='receivedMessage'>" + data.body + "</div>";
-                var displayMessage = $(html);
-                $('#content').append(displayMessage);
-                $('#content').scrollTop($('#content').prop('scrollHeight')); //收g消息后滚动到底
+            var message = JSON.parse(data.body);
+            //间隔大于2分钟则显示时间
+            var newTime = new Date(message.time);
+            if (newTime - time > 120000) {
+                var timeMatch = /\d{2}:\d{2}/;
+                var displayTime = $("<div class='time'>" + newTime.toTimeString().match(timeMatch)[0] + "</div>");
+                $('#content').append(displayTime);
             }
+            time = newTime;
+
+            var html;
+            if (message.user !== userName) {
+                //别人的消息
+                html = "<div class='received'>" +
+                    "<div class='receivedUser'>" + message.user + "</div>" +
+                    "<div class='receivedMessage'>" + message.text + "</div>";
+            } else {
+                //自己的消息
+                html = "<div class='sent'>" + message.text + "</div>";
+            }
+            var displayMessage = $(html);
+            $('#content').append(displayMessage);
+            $('#content').scrollTop($('#content').prop('scrollHeight')); //收到消息后滚动到底
         });
     });
 
     $('#submit').click(function () {
         if ($('#message').val() !== '') {
-            stompClient.send('/app/' + roomName, {
-                'user': userName
-            }, $('#message').val());
-            //发出消息右侧显示
-            //间隔大于2分钟则显示时间
             var newTime = new Date();
-            if (newTime - time > 120000) {
-                var timeMatch = /\d{2}:\d{2}/;
-                var displayTime = $("<div class='time'>" + newTime.toTimeString().match(timeMatch) + "</div>");
-                $('#content').append(displayTime);
+            var message = {
+                user: userName,
+                time: newTime.toJSON(),
+                text: $('#message').val()
             }
-            time = newTime;
-            var displayMessage = $("<div class='sent'>" + $('#message').val() + "</div>");
-            $('#content').append(displayMessage);
-            $('#content').scrollTop($('#content').prop('scrollHeight')); //发消息后滚动到底
+            stompClient.send('/app/' + roomName, {}, JSON.stringify(message));
             $('#message').val('');
         }
-    })
+    });
 });
