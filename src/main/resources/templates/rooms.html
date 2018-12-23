@@ -40,6 +40,7 @@
           <div
             class="participated"
             th:each="participatedRoom: ${participatedRooms}"
+            th:id="${participatedRoom.name}"
           >
             <output th:text="${participatedRoom.name}"></output>
             <div>
@@ -63,7 +64,7 @@
           <h3>Existed but Not Participated Rooms</h3>
           <!--use form to post a join request-->
           <form action="change/room/join" method="post">
-            <div class="rest" th:each="restRoom: ${restRooms}">
+            <div class="rest" th:each="restRoom: ${restRooms}" th:id="${restRoom.name}">
               <output th:text="${restRoom.name}"></output>
               <input
                 class="joinButton"

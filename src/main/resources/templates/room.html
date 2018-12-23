@@ -21,7 +21,7 @@
     </div>
     <div id="content">
         <div th:each="message: ${room.getMessage()}" th:class="${message.getuserName() == userName} ? 'sent' : 'received'">
-            <div th:if="${message.getuserName() == userName}" class="sent" th:remove="tag" th:text="${message.getuserName()}"></div>
+            <div th:if="${message.getuserName() == userName}" class="sent" th:remove="tag" th:text="${message.getMessage()}"></div>
             <div th:if="${message.getuserName() != userName}" class="receivedUser" th:text="${message.getuserName()}"></div>
             <div th:if="${message.getuserName() != userName}" class="receivedMessage" th:text="${message.getMessage()}"></div>
         </div>
