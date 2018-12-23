@@ -19,7 +19,13 @@
         <h1 th:text="${room.name}"></h1>
         <h2 th:text="'user: ' + ${userName}"></h2>
     </div>
-    <div id="content"></div>
+    <div id="content">
+        <div th:each="message: ${history}" th:class="${message.user} == userName ? 'sent' : 'received'"
+        th:text="${message.user} == userName ? ${message.text}">
+        <div th:if="${message.user} != userName" class="receivedUser" th:text="${message.user}"></div>
+        <div th:if="${message.user} != userName" class="receivedMessage" th:text="${message.text}"></div>
+    </div>
+    </div>
     <!-- <form action="/websocket" method="POST">
     <input type="text"/>
     <input type="submit">
