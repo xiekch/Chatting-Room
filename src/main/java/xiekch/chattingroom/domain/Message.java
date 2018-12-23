@@ -12,11 +12,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(String userName, String message, String roomuserName) {
+    public Message(String userName, String message, String roomName) {
         this.userName = userName;
         this.message = message;
         this.date = new Date();
-        this.roomName = roomuserName;
+        this.roomName = roomName;
     }
 
     public String getuserName() {

@@ -28,7 +28,12 @@ $(function () {
     $('#submit').click(function () {
         if ($('#message').val() !== '') {
 
-            stompClient.send('/app/' + roomName, {'user': userName}, $('#message').val());
+            stompClient.send('/app/' + roomName, {}, {
+                userName: userName,
+                data:new Date().getTime(),
+                message:$('#message').val(),
+                roomName,roomName
+            });
 
             //发出消息右侧显示
             var displayMessage = $("<div class='sent'>" + $('#message').val() + "</div>");
