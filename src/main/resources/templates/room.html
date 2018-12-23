@@ -20,10 +20,10 @@
         <h2 th:text="'user: ' + ${userName}"></h2>
     </div>
     <div id="content">
-        <div th:each="message: ${room.getMessage()}" th:class="${message.getuserName() == userName} ? 'sent' : 'received'">
-            <div th:if="${message.getuserName() == userName}" class="sent" th:remove="tag" th:text="${message.getMessage()}"></div>
-            <div th:if="${message.getuserName() != userName}" class="receivedUser" th:text="${message.getuserName()}"></div>
-            <div th:if="${message.getuserName() != userName}" class="receivedMessage" th:text="${message.getMessage()}"></div>
+        <div th:each="message: ${room.getMessage()}" th:class="${message.getUserName() == userName} ? 'sent' : 'received'">
+            <div th:if="${message.getUserName() == userName}" class="sent" th:remove="tag" th:text="${message.getMessage()}"></div>
+            <div th:if="${message.getUserName() != userName}" class="receivedUser" th:text="${message.getUserName()}"></div>
+            <div th:if="${message.getUserName() != userName}" class="receivedMessage" th:text="${message.getMessage()}"></div>
         </div>
     </div>
     <!-- <form action="/websocket" method="POST">

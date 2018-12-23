@@ -26,7 +26,7 @@ public class ChattingController {
     @ResponseBody
     @MessageMapping("/{roomName}")
     public void userChat(@RequestBody Message message, @DestinationVariable String roomName) {
-        ChattingService.getInstance().userSpeak(message.getuserName(), message.getRoomName(), message.getMessage(),
+        ChattingService.getInstance().userSpeak(message.getUserName(), message.getRoomName(), message.getMessage(),
                 message.getDate());
 
         this.template.convertAndSend("/userChat/" + roomName, message);

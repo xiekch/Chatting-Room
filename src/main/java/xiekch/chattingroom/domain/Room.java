@@ -7,33 +7,37 @@ public class Room {
     private ArrayList<User> users;
     private ArrayList<Message> content;
 
-    public Room(String name){
-        this.name=name;
-        this.users=new ArrayList<User>();
-        this.content=new ArrayList<Message>();
+    public Room(String name) {
+        this.name = name;
+        this.users = new ArrayList<User>();
+        this.content = new ArrayList<Message>();
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public ArrayList<Message> getMessage(){
+    public ArrayList<User> getUsers() {
+        return this.users;
+    }
+
+    public ArrayList<Message> getMessage() {
         return this.content;
     }
 
-    public void addMessage(Message mess){
+    public void addMessage(Message mess) {
         this.content.add(mess);
-    }    
+    }
 
-    public void addUser(User user){
+    public void addUser(User user) {
         this.users.add(user);
     }
 
-    public void removeUser(User user){
+    public void removeUser(User user) {
         this.users.remove(user);
     }
 
-    public boolean isParticipator(User user){
+    public boolean isParticipator(User user) {
         return this.users.contains(user);
     }
 
