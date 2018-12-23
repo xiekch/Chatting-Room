@@ -6,6 +6,9 @@ $(function () {
     var roomName = location.search.substr(1).match('[^&]*' + 'roomName' + '=([^&]*)')[1];
     var userName = $('h2').text().match(/\w+$/)[0];
     var time = new Date(0);
+
+    $('#content').scrollTop($('#content').prop('scrollHeight')); //界面加载时滚动消息到底
+
     stompClient.connect('', '', function (frame) {
         console.log('Connected: ' + frame);
         //用户聊天订阅
@@ -15,7 +18,7 @@ $(function () {
             var newTime = new Date(message.date);
             var lastTimeStr = time.toTimeString().match(/\d{2}:\d{2}/)[0];
             var newTimeStr = newTime.toTimeString().match(/\d{2}:\d{2}/)[0];
-            if (newTimeStr !== lastTimeStr) {             
+            if (newTimeStr !== lastTimeStr) {
                 var displayTime = $("<div class='time'>" + newTime.toTimeString().match(/\d{2}:\d{2}/)[0] + "</div>");
                 $('#content').append(displayTime);
             }
@@ -32,8 +35,11 @@ $(function () {
                 html = "<div class='sent'>" + message.message + "</div>";
             }
             var displayMessage = $(html);
-            $('#content').append(displayMessage);
-            $('#content').scrollTop($('#content').prop('scrollHeight')); //收到消息后滚动到底
+            var content = $('#content');
+            content.append(displayMessage);
+            content.animate({
+                scrollTop: content.prop('scrollHeight')
+            }, '300'); //收到消息后滚动到底
         });
     });
 

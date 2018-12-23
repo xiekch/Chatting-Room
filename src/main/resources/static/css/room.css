@@ -12,10 +12,13 @@ html, body{
     margin: auto;
 }
 
-h1{
-    margin: 1em;
+h1 {
+    margin: 0.5em;
 }
 
+h2 {
+    font-size: 1em;
+}
 
 /* form */
 #form{
@@ -58,8 +61,17 @@ h1{
 }
 
 #submit{
-    background-color: #2E7BEB;
+    background-color: rgb(84, 157, 253);
     border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 24px;
+    line-height: 20px;
+    color: white;
+}
+
+#submit:focus {
+    outline: 0; /*去掉发送后按钮的蓝框*/
 }
 
 #autoFill{
@@ -81,13 +93,23 @@ a {
 
 #content{
     margin: auto;
-    width: 400px;
-    height: 10em;
+    width: 530px;
+    height: 450px;
     background-color: antiquewhite;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+#message {
+    border: solid;
+    border-radius: 5px;
+    border-width: 1px;
+    width: 300px;
+    margin: 10px 5px;
+    height: 16px;
+    padding: 2px;
 }
 
 h2 {
@@ -99,7 +121,7 @@ h2 {
     margin: 5px 5px 15px 5px;
     text-align: left;
     word-wrap: break-word;
-    max-width: 220px;
+    max-width: 330px;
     min-width: 0;
     width: fit-content;
     padding: 2px 10px;
@@ -116,7 +138,7 @@ h2 {
     margin: 5px 5px 15px 5px;
     text-align: left;
     word-wrap: break-word;
-    max-width: 220px;
+    max-width: 330px;
     min-width: 0;
 }
 
