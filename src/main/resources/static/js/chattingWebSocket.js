@@ -45,7 +45,7 @@ $(function () {
                 message: $('#message').val(),
                 roomName: roomName
             };
-            stompClient.send('/app/' + roomName, {}, JSON.stringify(message));
+            stompClient.send('/app/room/' + roomName, {}, JSON.stringify(message));
             $('#message').val('');
         }
     });

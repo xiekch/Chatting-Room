@@ -1,22 +1,22 @@
 package xiekch.chattingroom.domain;
 
 public class Message {
+    private String roomName;
     private String userName;
     private String message;
     private long date;
-    private String roomName;
 
     public Message() {
     }
 
-    public Message(String userName, String message, String roomName,long data) {
+    public Message(String roomName, String userName, String message, long date) {
         this.userName = userName;
         this.message = message;
-        this.date = data;
+        this.date = date;
         this.roomName = roomName;
     }
 
-    public String getuserName() {
+    public String getUserName() {
         return this.userName;
     }
 
