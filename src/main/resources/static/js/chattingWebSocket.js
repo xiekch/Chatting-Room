@@ -13,19 +13,20 @@ $(function () {
 
         stompClient.subscribe('/userChat/' + roomName, function (data) {
             //只接受非自己的消息，左侧显示
-            if (data.headers.user !== userName) {
+            var message = JSON.parse(data.body);
+            if (message.userName !== userName) {
                 //间隔大于2分钟则显示时间
-                var newTime = new Date();
+                var newTime = message.date;
                 if (newTime - time > 120000) {
                     var timeMatch = /\d{2}:\d{2}/;
-                    var displayTime = $("<div class='time'>" + newTime.toTimeString().match(timeMatch) + "</div>");
+                    var displayTime = $("<div class='time'>" + new Date(newTime).toTimeString().match(timeMatch) + "</div>");
                     $('#content').append(displayTime);
                 }
                 time = newTime;
 
                 var html = "<div class='received'>" +
-                    "<div class='receivedUser'>" + data.headers.user + "</div>" +
-                    "<div class='receivedMessage'>" + data.body + "</div>";
+                    "<div class='receivedUser'>" + message.userName + "</div>" +
+                    "<div class='receivedMessage'>" + message.message + "</div>";
                 var displayMessage = $(html);
                 $('#content').append(displayMessage);
                 $('#content').scrollTop($('#content').prop('scrollHeight')); //收g消息后滚动到底
@@ -36,14 +37,12 @@ $(function () {
 
     $('#submit').click(function () {
         if ($('#message').val() !== '') {
-
-            stompClient.send('/app/' + roomName, {}, {
+            stompClient.send('/app/' + roomName, {}, JSON.stringify({
                 userName: userName,
-                data:new Date().getTime(),
-                message:$('#message').val(),
-                roomName,roomName
-            });
-
+                date: new Date().getTime(),
+                message: $('#message').val(),
+                roomName: roomName
+            }));
 
             //发出消息右侧显示
             //间隔大于2分钟则显示时间
