@@ -19,13 +19,16 @@ import xiekch.chattingroom.domain.*;
 import xiekch.chattingroom.service.ChattingService;
 
 @Controller
-public class ChattingController{
+public class ChattingController {
     @Autowired
     private SimpMessagingTemplate template;
 
-     @MessageMapping("/{roomName}")
-    public void userChat(String message, @DestinationVariable String roomName){
-        System.out.println(message);
+    @ResponseBody
+    @MessageMapping("/{roomName}")
+    public void userChat(@RequestBody Message message, @DestinationVariable String roomName) {
+        ChattingService.getInstance().userSpeak(message.getuserName(), message.getRoomName(), message.getMessage(),
+                message.getDate());
+
         this.template.convertAndSend("/userChat/" + roomName, message);
     }
 

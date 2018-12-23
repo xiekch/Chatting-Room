@@ -101,7 +101,7 @@ public class ChattingService {
         return false;
     }
 
-    public Message userSpeak(final String userName, final String roomName, final String mess) {
+    public Message userSpeak(final String userName, final String roomName, final String mess, final long date) {
         if (!this.storage.isRoom(roomName)) {
             throw new RuntimeException("Room does'nt exit!");
         }
@@ -113,7 +113,7 @@ public class ChattingService {
             throw new RuntimeException("User is not in the room!");
         }
 
-        Message message = user.speak(mess, roomName);
+        Message message = user.speak(mess, roomName, date);
         this.storage.getRoom(roomName).addMessage(message);
         return message;
     }

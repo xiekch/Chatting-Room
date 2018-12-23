@@ -28,16 +28,16 @@ public class User {
         this.password = password;
     }
 
-    public Message speak(String mess,String roomName) {
-        return new Message(this.name, mess,roomName);
+    public Message speak(String mess, String roomName, long date) {
+        return new Message(this.name, mess, roomName, date);
     }
-    
-    //override equals method to make contains work
+
+    // override equals method to make contains work
     public boolean equals(Object object) {
         if (this == object)
             return true;
 
-        User user = (User)object;
+        User user = (User) object;
         if (name.equals(user.getName()) && password.equals(user.getPassword()))
             return true;
         else

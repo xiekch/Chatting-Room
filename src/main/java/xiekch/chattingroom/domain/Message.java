@@ -1,22 +1,19 @@
 package xiekch.chattingroom.domain;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
 public class Message {
     private String userName;
     private String message;
-    private Date date;
+    private long date;
     private String roomName;
 
     public Message() {
     }
 
-    public Message(String userName, String message, String roomuserName) {
+    public Message(String userName, String message, String roomName,long data) {
         this.userName = userName;
         this.message = message;
-        this.date = new Date();
-        this.roomName = roomuserName;
+        this.date = data;
+        this.roomName = roomName;
     }
 
     public String getuserName() {
@@ -27,12 +24,11 @@ public class Message {
         return this.message;
     }
 
-    public String getDate() {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        return sf.format(this.date);
+    public long getDate() {
+        return this.date;
     }
 
-    public String getRoomuserName() {
+    public String getRoomName() {
         return this.roomName;
     }
 }
