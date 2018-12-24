@@ -10,10 +10,10 @@ $(function () {
             console.log(JSON.stringify(data.body));
             var operate = JSON.parse(data.body);
             if (operate.hasOwnProperty('create')) {
-                var room = $('<div id="' + operate.create + '" class="rest"><output>' + operate.create + '</output><input class="joinButton" type="submit" name="'
-                    + operate.create + '" value="join"></div>');
-                //$('<div id="'+operate.create+'" class="participated"><output>'+operate.create+'</output><div><a href="/room?roomName='+operate.create+'&amp;user=">'+'<button class="enterButton">enter</button></a>'+'<input class="quitButton" type="submit" name="'+operate.create+'" value="quit"></form></div></div>');
-                $('#rest form').append(room);
+                var room = $('<div class="rest" ' + 'id="' + operate.create + '"><output>' + operate.create + '</output>' +
+                    '<form action="change/room/join" method="post"><input type="hidden" name="roomName" value="' + operate.create + '" />' +
+                    '<input class="joinButton" type="submit" value="join" /></div></form></div>');
+                $('#rest').append(room);
             } else if (operate.hasOwnProperty('delete')) {
                 $('#' + operate.delete).remove();
             }

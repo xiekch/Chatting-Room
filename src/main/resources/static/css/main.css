@@ -11,7 +11,7 @@ html, body{
 #main{
     width: 700px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 80px;
 }
 
 #introduction h1, h2{
@@ -38,7 +38,7 @@ html, body{
     background-color: whitesmoke;
     opacity: 0.8;
     clear: both;
-    height: 300px;
+    /* height: 300px; */
 }
 
 /* form */
@@ -48,7 +48,6 @@ html, body{
 
 #form .cell{
     width: 100%;
-    margin-bottom: 1em;
 }
 
 #form .fieldName{
@@ -58,16 +57,18 @@ html, body{
 
 #form .field{
     width: 70%;
-    height: 2em;
+    height: 1.5em;
+    font-size: 1em;
 }
 
 .error{
     width: 70%;
     margin-left: 28%;
-    font-size: 12px;
+    font-size: 16px;
     height: 1.5em;
     color: #E56260;
-    margin-bottom: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
     text-align: left;
 }
 
@@ -75,6 +76,10 @@ html, body{
     width: 30%;
     height: 2em;
     margin: 2px;
+    font-size: 1em;
+}
+
+input, button{
     font-size: 1em;
 }
 

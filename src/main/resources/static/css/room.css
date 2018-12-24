@@ -108,13 +108,16 @@ a {
     text-decoration: none;
 }
 
+input{
+    font-size: 1em;
+}
 
 #container{
     margin: auto;
     margin-top: 1em;
     float: right;
     width: 600px;
-    height: 800px;
+    height: 700px;
 }
 
 #content{

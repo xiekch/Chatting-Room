@@ -65,7 +65,7 @@ public class ChattingService {
 
     public boolean userSignIn(final User user) {
         if (!this.isUser(user)) {
-            throw new RuntimeException("User's name or password is not correct!");
+            throw new RuntimeException("User's password is not correct or user's name has been used!");
         }
 
         return true;

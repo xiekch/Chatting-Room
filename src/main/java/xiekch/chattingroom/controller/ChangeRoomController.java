@@ -31,9 +31,10 @@ public class ChangeRoomController {
     }
 
     @PostMapping("change/room/quit")
-    public String quitRoom(@RequestBody String request, HttpSession session, Model model) {
+    public String quitRoom(@RequestParam("roomName") String roomName, HttpSession session, Model model) {
         // deal with the request data posted by form
-        String roomName = request.substring(0, request.indexOf('='));
+        // String roomName = request.substring(0, request.indexOf('='));
+        System.out.println("quit roomName: " + roomName);
         User user = (User) session.getAttribute("user");
         Room room = ChattingService.getInstance().getRoom(roomName);
         ChattingService.getInstance().userQuitRoom(room, user);
@@ -45,9 +46,10 @@ public class ChangeRoomController {
     }
 
     @PostMapping("change/room/join")
-    public String joinRoom(@RequestBody String request, HttpSession session, Model model) {
-        String roomName = request.substring(0, request.indexOf('='));
+    public String joinRoom(@RequestParam("roomName") String roomName, HttpSession session, Model model) {
+        // String roomName = request.substring(0, request.indexOf('='));
         User user = (User) session.getAttribute("user");
+        System.out.println("join roomName: " + roomName);
         try {
             Room room = ChattingService.getInstance().getRoom(roomName);
             ChattingService.getInstance().userEnterRoom(room, user);
