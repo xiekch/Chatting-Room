@@ -1,22 +1,45 @@
 /* layout */
 html, body{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     text-align: center;
-    background-color: whitesmoke;
+    background: whitesmoke url("/images/background.jpg") no-repeat fixed center;
+    background-size: cover;
     /* background-color: #CCE8CF; */
 }
 
 #main{
-    width: 500px;
+    width: 700px;
     margin: auto;
+    margin-top: 100px;
 }
 
-h1{
-    font-size: 26px;
+#introduction h1, h2{
+    color: white;
+    text-shadow: 5px 5px 15px #2B3137;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#introduction h1{
+    font-size: 2em;
+}
+
+#introduction h2{
+    font-size: 1.5em;
+    float: right;
+}
+
+#form-container h1{
+    font-size: 1.5em;
     margin: 1em;
 }
 
+#form-container{
+    background-color: whitesmoke;
+    opacity: 0.8;
+    clear: both;
+    height: 300px;
+}
 
 /* form */
 #form{
@@ -25,6 +48,7 @@ h1{
 
 #form .cell{
     width: 100%;
+    margin-bottom: 1em;
 }
 
 #form .fieldName{
@@ -41,16 +65,17 @@ h1{
     width: 70%;
     margin-left: 28%;
     font-size: 12px;
-    height: 1em;
+    height: 1.5em;
     color: #E56260;
     margin-bottom: 1.5em;
     text-align: left;
 }
 
 #form .button{
-    width: 24%;
+    width: 30%;
     height: 2em;
     margin: 2px;
+    font-size: 1em;
 }
 
 #reset{

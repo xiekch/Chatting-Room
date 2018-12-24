@@ -3,7 +3,7 @@
 $(function () {
     var socket = new SockJS('/websocket');
     var stompClient = Stomp.over(socket);
-    var roomName = $('h1').text();
+    var roomName = $('h1').text().match(/\w+$/)[0];
     var userName = $('h2').text().match(/\w+$/)[0];
     var time = new Date(0);
 

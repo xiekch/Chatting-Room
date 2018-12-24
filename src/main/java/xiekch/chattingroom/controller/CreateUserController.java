@@ -11,9 +11,9 @@ import xiekch.chattingroom.service.ChattingService;
 
 @Controller
 public class CreateUserController {
-    
-    @PostMapping("/create/user")
-    public String createUser(User user, HttpSession session,Model model) {
+
+    @PostMapping("/")
+    public String createUser(User user, HttpSession session, Model model) {
         System.out.println("create user");
         try {
             if (ChattingService.getInstance().userSignIn(user)) {
@@ -23,12 +23,13 @@ public class CreateUserController {
         } catch (RuntimeException e) {
             try {
                 if (ChattingService.getInstance().userSignUp(user)) {
-                    session.setAttribute("user", user);;
+                    session.setAttribute("user", user);
                     return "redirect:/rooms";
                 }
             } catch (RuntimeException err) {
-                e.printStackTrace();
-                model.addAttribute("error", e.toString());
+                err.printStackTrace();
+                model.addAttribute("error", err.toString().split(":")[1]);
+                return "index"; // "{\"error\": \"" + err.toString().split(":")[1] + "\"}";
             }
         }
         return "redirect:/";

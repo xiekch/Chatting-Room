@@ -12,25 +12,31 @@
 
 <body>
     <div id="main">
-        <h1>Sign Up/Sign In</h1>
-        <form id="form" action="/create/user" method="post">
-            <div class="cell">
-                <span class="fieldName">User name</span>
-                <input class="field" type="text" id="username" name="name">
-            </div>
+        <div id="introduction">
+            <h1>Chatting Room</h1>
+            <h2>chat on the Web</h2>
+        </div>
+        <div id="form-container">
+            <h1>Sign Up/Sign In</h1>
+            <form id="form" action="/" method="post">
+                <div class="cell">
+                    <span class="fieldName">User name</span>
+                    <input class="field" type="text" id="username" name="name">
+                </div>
 
-            <div class="cell">
-                <span class="fieldName">Password</span>
-                <input class="field" type="text" id="password" name="password">
-            </div>
-            
-            <div class="error" th:text="{error}"></div>
-            <div>
-                <input id="reset" class="button" type="button" value="reset" />
-                <input id="submit" class="button" type="submit" value="Sign Up/Sign In" />
-            </div>
+                <div class="cell">
+                    <span class="fieldName">Password</span>
+                    <input class="field" type="text" id="password" name="password">
+                </div>
 
-        </form>
+                <div class="error" th:text="${error}"></div>
+                <div>
+                    <input id="reset" class="button" type="button" value="reset" />
+                    <input id="submit" class="button" type="submit" value="Sign Up/Sign In" />
+                </div>
+
+            </form>
+        </div>
     </div>
 
 </body>

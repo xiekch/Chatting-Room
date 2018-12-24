@@ -1,24 +1,34 @@
 /* layout */
 html, body{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
+    font-size: 22px;
     text-align: center;
     background-color: whitesmoke;
     width: 100%;
+    margin: 0;
     /* background-color: #CCE8CF; */
 }
 
 #main{
-    width: 500px;
+    width: 900px;
     margin: auto;
 }
 
+#introduction{
+    width: 250px;
+    float: left;
+}
+
 h1 {
-    margin: 0.5em;
+    font-size: 1.5em;
+    text-align: left;
 }
 
 h2 {
     font-size: 1em;
+    text-align: left;
+    color: blue;
+    font-style: italic;
 }
 
 /* form */
@@ -28,26 +38,6 @@ h2 {
 
 #form .cell{
     width: 100%;
-}
-
-#form .fieldName{
-    display: inline-block;
-    width: 25%;
-}
-
-#form .field{
-    width: 70%;
-    height: 2em;
-}
-
-#form .error{
-    width: 70%;
-    margin-left: 28%;
-    font-size: 12px;
-    height: 1em;
-    color: #E56260;
-    margin-bottom: 1.5em;
-    text-align: left;
 }
 
 #form .button{
@@ -63,11 +53,12 @@ h2 {
 
 .button {
     cursor: pointer;
+    font-size: 1em;
 }
 
 header{
     width: 100%;
-    height: 30px;
+    height: 2em;
     background-color: coral;
 }
 
@@ -76,7 +67,7 @@ header{
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    height: 24px;
+    height: 2em;
     line-height: 20px;
     color: white;
 }
@@ -90,23 +81,25 @@ header{
 }
 
 #back {
-    width: 150px;
+    width: 250px;
     background-color: coral;
     border: none;
-    height: 30px;
+    height: 2em;
     cursor: pointer;
     margin: auto;
     display: inline-block;
+    font-size: 1em;
 }
 
 #logOut {
     background-color: coral;
     border: none;
+    height: 100%;
 }
 
 #logOutForm{
     width: 100px;
-    height: 30px;
+    height: 2em;
     float: right;
     margin-right: 80px;
 }
@@ -116,10 +109,17 @@ a {
 }
 
 
-#content{
+#container{
     margin: auto;
-    width: 530px;
-    height: 450px;
+    margin-top: 1em;
+    float: right;
+    width: 600px;
+    height: 800px;
+}
+
+#content{
+    width: 100%;
+    height: 80%;
     background-color: antiquewhite;
     overflow-y: auto;
     display: flex;
@@ -131,15 +131,10 @@ a {
     border: solid;
     border-radius: 5px;
     border-width: 1px;
-    width: 300px;
+    width: 80%;
     margin: 10px 5px;
-    height: 16px;
+    height: 2em;
     padding: 2px;
-}
-
-h2 {
-    color: blue;
-    font-style: italic;
 }
 
 .sent {
@@ -177,7 +172,7 @@ h2 {
     padding: 2px 10px;
     background-color: lightblue;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 1em;
     width: fit-content;
 }
 
