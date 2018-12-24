@@ -1,3 +1,4 @@
-wechat _test_1 _test_2 
+wechat _test_1 _test_2 _test_3 WANGR 
 test_room _test_1 _test_2 
 createYourRooms _test_1 
+房间信息同步 _test_1 

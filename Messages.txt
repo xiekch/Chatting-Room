@@ -3,5 +3,9 @@ wechat _test_1 欢迎大家来到聊天室！ 1545621436355
 wechat _test_2 你好&你好 1545621519795
 wechat _test_2 此聊天室实现实时同步 1545621640024
 wechat _test_2 大家有什么意见请畅所欲言 1545621684784
+wechat _test_1 nice 1545638625834
+wechat WANGR 123 1545639639081
+wechat _test_1 好咧 1545640978201
+wechat WANGR 123 1545641005139
 test_room _test_1 very&good! 1545621473165
 test_room _test_1 非常好&好 1545621486075
