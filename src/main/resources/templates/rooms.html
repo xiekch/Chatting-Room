@@ -36,7 +36,7 @@
       </form>
       <div id="rooms">
         <div id="participated">
-          <h3>Participated Rooms</h3>
+          <h3>已参与的房间</h3>
           <div
             class="participated"
             th:each="participatedRoom: ${participatedRooms}"
@@ -45,7 +45,7 @@
             <output th:text="${participatedRoom.name}"></output>
             <div>
               <!--the enter button, link to specific url-->
-              <a th:href="@{'/room?roomName='+${participatedRoom.name}+'&user='+${user.name}}"
+              <a th:href="@{'/room?roomName='+${participatedRoom.name}}"
                 ><button class="enterButton">enter</button></a
               >
               <!--use form to post a quit request-->
@@ -61,7 +61,7 @@
           </div>
         </div>
         <div id="rest">
-          <h3>Existed but Not Participated Rooms</h3>
+          <h3>其他房间</h3>
           <!--use form to post a join request-->
           <form action="change/room/join" method="post">
             <div class="rest" th:each="restRoom: ${restRooms}" th:id="${restRoom.name}">

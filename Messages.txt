@@ -1,8 +1,7 @@
-wechat wechat good 1545615497816
-wechat wechat very good 1545615530370
-wechat xiaoming wonderful 1545615560374
-wechat xiaoming press enter to send 1545615596373
-wechat wechat do you have any suggestions? 1545615613793
-wechat xiaoming haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa 1545615622485
-wechat xiaoming 水一水 1545615639821
-wechat wechat 界面可能有待优化 1545615656721
+wechat _test_1 Welcome&to&the&Chatting&Room! 1545621419876
+wechat _test_1 欢迎大家来到聊天室！ 1545621436355
+wechat _test_2 你好&你好 1545621519795
+wechat _test_2 此聊天室实现实时同步 1545621640024
+wechat _test_2 大家有什么意见请畅所欲言 1545621684784
+test_room _test_1 very&good! 1545621473165
+test_room _test_1 非常好&好 1545621486075

@@ -13,7 +13,7 @@ import xiekch.chattingroom.domain.*;
 public class RoomController {
 
     @GetMapping("/room")
-    public String room(@RequestParam("roomName") String roomName, @RequestParam("user") String userName, Model model, HttpSession session) {
+    public String room(@RequestParam("roomName") String roomName, Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
         try {
             if (!ChattingService.getInstance().isRoomUser(roomName, user)) {
@@ -24,7 +24,7 @@ public class RoomController {
             return "redirect:/rooms";
         }
         model.addAttribute("room", ChattingService.getInstance().getRoom(roomName));
-        model.addAttribute("userName", userName);
+        model.addAttribute("userName", user.getName());
         return "room";
     }
 }

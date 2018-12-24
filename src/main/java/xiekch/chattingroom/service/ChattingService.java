@@ -20,6 +20,10 @@ public class ChattingService {
     }
 
     public boolean userSignUp(final User user) {
+        if (user == null) {
+            throw new RuntimeException("User must not be null!");
+        }
+
         if (user.getName().equals("")) {
             throw new RuntimeException("User's name must be filled!");
         }
@@ -42,7 +46,7 @@ public class ChattingService {
     }
 
     public boolean roomSignUp(final Room room, final User user) {
-        if (!this.storage.isUser(user)) {
+        if (!this.isUser(user)) {
             throw new RuntimeException("User does'nt exit!");
         }
         if (room.getName().equals("")) {
@@ -60,7 +64,7 @@ public class ChattingService {
     }
 
     public boolean userSignIn(final User user) {
-        if (!this.storage.isUser(user)) {
+        if (!this.isUser(user)) {
             throw new RuntimeException("User's name or password is not correct!");
         }
 
@@ -68,37 +72,46 @@ public class ChattingService {
     }
 
     public void userEnterRoom(Room room, User user) {
-        if (!room.isParticipator(user)) {
-            room.addUser(user);
+        if (!this.isUser(user)) {
+            throw new RuntimeException("User does'nt exit!");
         }
+        if (!this.isRoom(room.getName())) {
+            throw new RuntimeException("Room does'nt exit!");
+        }
+        this.storage.userEnterRoom(room,user);
+       
     }
 
     public void userQuitRoom(Room room, User user) {
         if (room.isParticipator(user)) {
             room.removeUser(user);
             if (room.isEmpty()) {
-                storage.deleteRoom(room);
+                this.storage.deleteRoom(room);
             }
         }
     }
 
     public boolean isUser(User user) {
+        if (user == null || user.getName() == null || user.getPassword() == null)
+            return false;
         return this.storage.isUser(user);
     }
 
     public boolean isRoom(String roomName) {
+        if (roomName == null)
+            return false;
         return this.storage.isRoom(roomName);
     }
 
     public boolean isRoomUser(Room room, User user) {
-        if (this.storage.isRoom(room.getName()) && this.storage.isUser(user) && room.isParticipator(user)) {
+        if (this.isRoom(room.getName()) && this.isUser(user) && room.isParticipator(user)) {
             return true;
         }
         return false;
     }
 
     public boolean isRoomUser(String roomName, User user) {
-        if (this.storage.isRoom(roomName) && this.storage.isUser(user)
+        if (this.isRoom(roomName) && this.isUser(user)
                 && this.storage.getRoom(roomName).isParticipator(user)) {
             return true;
         }
@@ -106,7 +119,7 @@ public class ChattingService {
     }
 
     public Message userSpeak(final String userName, final String roomName, final String mess, final long date) {
-        if (!this.storage.isRoom(roomName)) {
+        if (!this.isRoom(roomName)) {
             throw new RuntimeException("Room does'nt exit!");
         }
         if (!this.storage.isUser(userName)) {
@@ -123,7 +136,7 @@ public class ChattingService {
     }
 
     public Room getRoom(String roomName) {
-        if (!this.storage.isRoom(roomName)) {
+        if (!this.isRoom(roomName)) {
             throw new RuntimeException("Room does'nt exit!");
         }
 
@@ -131,6 +144,10 @@ public class ChattingService {
     }
 
     public ArrayList<Room> getParticipatedRooms(User user) {
+        if (!this.isUser(user)) {
+            throw new RuntimeException("User does'nt exit!");
+        }
+
         ArrayList<Room> participatedRooms = new ArrayList<Room>();
         ArrayList<Room> rooms = this.storage.getRooms();
         for (Room r : rooms) {

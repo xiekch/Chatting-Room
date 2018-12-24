@@ -37,7 +37,7 @@ h1{
     height: 2em;
 }
 
-#form .error{
+.error{
     width: 70%;
     margin-left: 28%;
     font-size: 12px;

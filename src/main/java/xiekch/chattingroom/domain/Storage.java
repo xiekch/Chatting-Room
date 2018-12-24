@@ -84,7 +84,9 @@ public class Storage {
                         text = inline.split(" +");
                         if (text.length != 4)
                             continue;
-                        Message message = new Message(text[0], text[1], text[2], Long.valueOf(text[3]));
+                        String temp = text[2].replace('&', ' ');
+                        temp = temp.replace("/amp", "&");
+                        Message message = new Message(text[0], text[1], temp, Long.valueOf(text[3]));
                         Room room = this.getRoom(text[0]);
                         room.addMessage(message);
                     }
@@ -162,7 +164,9 @@ public class Storage {
                         writer.write(" ");
                         writer.write(message.getUserName());
                         writer.write(" ");
-                        writer.write(message.getMessage());
+                        String temp = message.getMessage().replace("&", "/amp");
+                        temp = temp.replaceAll(" +", "&");
+                        writer.write(temp);
                         writer.write(" ");
                         writer.write(String.valueOf(message.getDate()));
                         writer.write("\r\n");
@@ -190,14 +194,12 @@ public class Storage {
         room.addUser(user);
         this.rooms.add(room);
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
     public void createUser(User user) {
         this.users.add(user);
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -208,14 +210,12 @@ public class Storage {
             }
         }
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
     public void deleteRoom(Room room) {
         this.rooms.remove(room);
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -226,14 +226,12 @@ public class Storage {
             }
         }
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
     public void deleteUser(User user) {
         this.users.remove(user);
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -297,7 +295,6 @@ public class Storage {
             }
         }
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -308,7 +305,6 @@ public class Storage {
             }
         }
         dirty++;
-        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -316,6 +312,13 @@ public class Storage {
         this.getRoom(roomName).addMessage(message);
         dirty++;
         this.writeToFile();
+    }
+
+    public void userEnterRoom(Room room,User user){
+        if (!room.isParticipator(user)) {
+            room.addUser(user);
+            dirty++;
+        }
     }
 
     public void sync() {

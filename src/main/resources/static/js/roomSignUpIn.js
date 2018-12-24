@@ -5,7 +5,7 @@ $(function () {
                 status: false,
                 error: 'Room\'s name can be 5~15 alphanumeric or underscore characters',
                 isValid: function (data) {
-                    return this.status = /^\w{5,15}$/.test(data);
+                    return this.status = /^[\w\u4e00-\u9fa5]{5,15}$/.test(data);
                 }
             }
         },

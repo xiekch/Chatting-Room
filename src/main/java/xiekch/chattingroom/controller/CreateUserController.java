@@ -3,6 +3,7 @@ package xiekch.chattingroom.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import xiekch.chattingroom.domain.*;
@@ -12,7 +13,7 @@ import xiekch.chattingroom.service.ChattingService;
 public class CreateUserController {
     
     @PostMapping("/create/user")
-    public String createUser(User user, HttpSession session) {
+    public String createUser(User user, HttpSession session,Model model) {
         System.out.println("create user");
         try {
             if (ChattingService.getInstance().userSignIn(user)) {
@@ -26,7 +27,8 @@ public class CreateUserController {
                     return "redirect:/rooms";
                 }
             } catch (RuntimeException err) {
-                e.toString();
+                e.printStackTrace();
+                model.addAttribute("error", e.toString());
             }
         }
         return "redirect:/";
