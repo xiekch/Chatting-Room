@@ -28,8 +28,8 @@ public class User {
         this.password = password;
     }
 
-    public Message speak(String mess, String roomName, long date) {
-        return new Message(this.name, mess, roomName, date);
+    public Message speak(String roomName, String mess, long date) {
+        return new Message(roomName, this.name, mess, date);
     }
 
     // override equals method to make contains work

@@ -189,13 +189,15 @@ public class Storage {
     public void createRoom(Room room, User user) {
         room.addUser(user);
         this.rooms.add(room);
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
     public void createUser(User user) {
         this.users.add(user);
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -205,13 +207,15 @@ public class Storage {
                 this.rooms.remove(r);
             }
         }
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
     public void deleteRoom(Room room) {
         this.rooms.remove(room);
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -221,13 +225,15 @@ public class Storage {
                 this.users.remove(u);
             }
         }
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
     public void deleteUser(User user) {
         this.users.remove(user);
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -290,7 +296,8 @@ public class Storage {
                 r = newRoom;
             }
         }
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
         this.writeToFile();
     }
 
@@ -300,7 +307,18 @@ public class Storage {
                 u = newUser;
             }
         }
-        dirty++;System.out.println(dirty);
+        dirty++;
+        System.out.println(dirty);
+        this.writeToFile();
+    }
+
+    public void userSpeak(String roomName, Message message) {
+        this.getRoom(roomName).addMessage(message);
+        dirty++;
+        this.writeToFile();
+    }
+
+    public void sync() {
         this.writeToFile();
     }
 

@@ -10,10 +10,10 @@ public class Message {
     }
 
     public Message(String roomName, String userName, String message, long date) {
+        this.roomName = roomName;
         this.userName = userName;
         this.message = message;
         this.date = date;
-        this.roomName = roomName;
     }
 
     public String getUserName() {

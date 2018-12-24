@@ -4,6 +4,7 @@ html, body{
     font-size: 20px;
     text-align: center;
     background-color: whitesmoke;
+    width: 100%;
     /* background-color: #CCE8CF; */
 }
 
@@ -56,6 +57,12 @@ h2{
     margin: 2px;
 }
 
+header{
+    width: 100%;
+    height: 30px;
+    background-color: coral;
+}
+
 #reset{
     background-color: coral;
     border: none;
@@ -71,6 +78,8 @@ h2{
     background-color: coral;
     border: none;
     height: 30px;
+    float: right;
+    margin-right: 80px;
 }
 
 .button {

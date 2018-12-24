@@ -4,6 +4,7 @@ html, body{
     font-size: 20px;
     text-align: center;
     background-color: whitesmoke;
+    width: 100%;
     /* background-color: #CCE8CF; */
 }
 
@@ -60,6 +61,16 @@ h2 {
     border: none;
 }
 
+.button {
+    cursor: pointer;
+}
+
+header{
+    width: 100%;
+    height: 30px;
+    background-color: coral;
+}
+
 #submit{
     background-color: rgb(84, 157, 253);
     border: none;
@@ -84,6 +95,20 @@ h2 {
     border: none;
     height: 30px;
     cursor: pointer;
+    margin: auto;
+    display: inline-block;
+}
+
+#logOut {
+    background-color: coral;
+    border: none;
+}
+
+#logOutForm{
+    width: 100px;
+    height: 30px;
+    float: right;
+    margin-right: 80px;
 }
 
 a {

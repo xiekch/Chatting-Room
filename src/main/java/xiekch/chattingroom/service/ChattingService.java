@@ -86,7 +86,7 @@ public class ChattingService {
         return this.storage.isUser(user);
     }
 
-    public boolean isRoom(String roomName){
+    public boolean isRoom(String roomName) {
         return this.storage.isRoom(roomName);
     }
 
@@ -117,8 +117,8 @@ public class ChattingService {
             throw new RuntimeException("User is not in the room!");
         }
 
-        Message message = user.speak(mess, roomName, date);
-        this.storage.getRoom(roomName).addMessage(message);
+        Message message = user.speak(roomName, mess, date);
+        this.storage.userSpeak(roomName, message);
         return message;
     }
 

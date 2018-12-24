@@ -12,7 +12,7 @@ $(function () {
     stompClient.connect('', '', function (frame) {
         console.log('Connected: ' + frame);
         //用户聊天订阅
-        stompClient.subscribe('/userChat/' + roomName, function (data) {
+        stompClient.subscribe('/room/' + roomName, function (data) {
             var message = JSON.parse(data.body);
             //分钟不一样则显示时间
             var newTime = new Date(message.date);
@@ -55,4 +55,10 @@ $(function () {
             $('#message').val('');
         }
     });
+
+    $('#message').keydown(function (event) {
+        if (event.keyCode == 13) {//press Enter key to submit
+            $('#submit').click();
+        }
+    })
 });
