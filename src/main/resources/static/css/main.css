@@ -35,8 +35,9 @@ html, body{
 }
 
 #form-container{
-    background-color: whitesmoke;
-    opacity: 0.8;
+    /* background-color: whitesmoke;
+    opacity: 0.8; */
+    background-color: rgba(245, 245, 245, 0.8);
     clear: both;
     /* height: 300px; */
 }

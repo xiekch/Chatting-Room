@@ -34,12 +34,20 @@ $(function () {
                 //自己的消息
                 html = "<div class='sent'>" + message.message + "</div>";
             }
-            var displayMessage = $(html);
+            var displayMessage = $(html).css('opacity', 0);
             var content = $('#content');
             content.append(displayMessage);
             content.animate({
                 scrollTop: content.prop('scrollHeight')
-            }, '300'); //收到消息后滚动到底
+            }, {
+                duration: 500,
+                start: function () {
+                    displayMessage.animate({
+                        opacity: 1
+                    }, 400)
+                } //滚动到底的同时渐变淡入
+            });
+
         });
     });
 
