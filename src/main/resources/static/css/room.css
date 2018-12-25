@@ -82,7 +82,7 @@ header{
 
 #back {
     width: 200px;
-    background-color: aquamarine;
+    background-color: rgb(253, 169, 138);
     border: none;
     height: 2em;
     cursor: pointer;
@@ -92,7 +92,7 @@ header{
 }
 
 #logOut {
-    background-color: lightblue;
+    background-color: rgb(253, 169, 138);
     border: none;
     height: 100%;
 }
