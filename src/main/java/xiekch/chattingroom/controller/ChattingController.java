@@ -21,8 +21,10 @@ public class ChattingController {
     public void room(@RequestBody Message message, @DestinationVariable String roomName) {
         ChattingService.getInstance().userSpeak(message.getUserName(), message.getRoomName(), message.getMessage(),
                 message.getDate());
-
-        this.template.convertAndSend("/room/" + roomName, message);
+        
+        String temp = message.getMessage();      
+        Message temp2 = new Message(message.getRoomName(), message.getUserName(), temp.replace("<script", "?"), message.getDate());
+        this.template.convertAndSend("/room/" + roomName, temp2);
     }
 
 }
