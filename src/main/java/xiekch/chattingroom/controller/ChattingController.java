@@ -8,7 +8,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import xiekch.chattingroom.domain.*;
+import xiekch.chattingroom.domain.Message;
 import xiekch.chattingroom.service.ChattingService;
 
 @Controller
@@ -19,6 +19,7 @@ public class ChattingController {
     @ResponseBody
     @MessageMapping("/room/{roomName}")
     public void room(@RequestBody Message message, @DestinationVariable String roomName) {
+        message.escape();
         ChattingService.getInstance().userSpeak(message.getUserName(), message.getRoomName(), message.getMessage(),
                 message.getDate());
 

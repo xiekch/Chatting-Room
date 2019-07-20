@@ -7,9 +7,9 @@ public class Storage {
     private ArrayList<Room> rooms;
     private ArrayList<User> users;
     private static Storage storage;
-    private final static String RoomsFileName = "Rooms.txt";
-    private final static String UsersFileName = "Users.txt";
-    private final static String MessagesFileName = "Messages.txt";
+    private final static String RoomsFileName = "./data/Rooms.txt";
+    private final static String UsersFileName = "./data/Users.txt";
+    private final static String MessagesFileName = "./data/Messages.txt";
     private static int dirty = 0;
 
     private Storage() {
@@ -24,81 +24,62 @@ public class Storage {
         String inline = null;
         String[] text = null;
         try {
-            try {
-                inputFile = new File(UsersFileName);
-                if (!(inputFile.isFile() && inputFile.exists())) {
-                    inputFile.createNewFile();
-                } else {
-                    reader = new BufferedReader(new FileReader(inputFile));
-                    inline = null;
-                    while ((inline = reader.readLine()) != null) {
-                        text = inline.split(" +");
-                        if (text.length != 2)
-                            continue;
-                        this.users.add(new User(text[0], text[1]));
-                    }
+            // users
+            inputFile = new File(UsersFileName);
+            if (!(inputFile.isFile() && inputFile.exists())) {
+                inputFile.createNewFile();
+            } else {
+                reader = new BufferedReader(new FileReader(inputFile));
+                inline = null;
+                while ((inline = reader.readLine()) != null) {
+                    text = inline.split(" +");
+                    if (text.length != 2)
+                        continue;
+                    this.users.add(new User(text[0], text[1]));
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (reader != null)
-                    reader.close();
-                reader = null;
             }
+            reader.close();
 
-            try {
-                inputFile = new File(RoomsFileName);
-                if (!(inputFile.isFile() && inputFile.exists())) {
-                    inputFile.createNewFile();
-                } else {
-                    reader = new BufferedReader(new FileReader(inputFile));
-                    inline = null;
-                    while ((inline = reader.readLine()) != null) {
-                        text = inline.split(" +");
-                        if (text.length < 2)
-                            continue;
-                        Room room = new Room(text[0]);
-                        this.rooms.add(room);
-                        for (int i = 1; i < text.length; i++) {
-                            User user = this.getUser(text[i]);
-                            room.addUser(user);
-                        }
+            // rooms
+            inputFile = new File(RoomsFileName);
+            if (!(inputFile.isFile() && inputFile.exists())) {
+                inputFile.createNewFile();
+            } else {
+                reader = new BufferedReader(new FileReader(inputFile));
+                inline = null;
+                while ((inline = reader.readLine()) != null) {
+                    text = inline.split(" +");
+                    if (text.length < 2)
+                        continue;
+                    Room room = new Room(text[0]);
+                    this.rooms.add(room);
+                    for (int i = 1; i < text.length; i++) {
+                        User user = this.getUser(text[i]);
+                        room.addUser(user);
                     }
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (reader != null)
-                    reader.close();
-                reader = null;
             }
+            reader.close();
 
-            try {
-                inputFile = new File(MessagesFileName);
-                if (!(inputFile.isFile() && inputFile.exists())) {
-                    inputFile.createNewFile();
-                } else {
-                    reader = new BufferedReader(new FileReader(inputFile));
-                    inline = null;
-                    while ((inline = reader.readLine()) != null) {
-                        text = inline.split(" +");
-                        if (text.length != 4)
-                            continue;
-                        String temp = text[2].replace('&', ' ');
-                        temp = temp.replace("/amp", "&");
-                        Message message = new Message(text[0], text[1], temp, Long.valueOf(text[3]));
-                        Room room = this.getRoom(text[0]);
-                        room.addMessage(message);
-                    }
+            // messages
+            inputFile = new File(MessagesFileName);
+            if (!(inputFile.isFile() && inputFile.exists())) {
+                inputFile.createNewFile();
+            } else {
+                reader = new BufferedReader(new FileReader(inputFile));
+                inline = null;
+                while ((inline = reader.readLine()) != null) {
+                    text = inline.split(" +");
+                    if (text.length != 4)
+                        continue;
+                    Message message = new Message(text[0], text[1], text[2], Long.valueOf(text[3]));
+                    Room room = this.getRoom(text[0]);
+                    room.addMessage(message);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                if (reader != null)
-                    reader.close();
-                reader = null;
             }
-        } catch (IOException e) {
+            reader.close();
+            
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -108,77 +89,61 @@ public class Storage {
             return;
         dirty = 0;
         File outputFile = null;
-        Writer writer = null;
+        BufferedWriter writer = null;
         try {
-            try {
-                outputFile = new File(UsersFileName);
-                if (!outputFile.exists()) {
-                    outputFile.createNewFile();
-                }
-                writer = new FileWriter(outputFile);
-                for (User user : this.users) {
+            // users
+            outputFile = new File(UsersFileName);
+            if (!outputFile.exists()) {
+                outputFile.createNewFile();
+            }
+            writer = new BufferedWriter(new FileWriter(outputFile));
+            for (User user : this.users) {
+                writer.write(user.getName());
+                writer.write(" ");
+                writer.write(user.getPassword());
+                writer.newLine();
+            }
+            writer.close();
+
+            // rooms
+            outputFile = new File(RoomsFileName);
+            if (!outputFile.exists()) {
+                outputFile.createNewFile();
+            }
+            writer = new BufferedWriter(new FileWriter(outputFile));
+            for (Room room : this.rooms) {
+                writer.write(room.getName());
+                writer.write(" ");
+                ArrayList<User> users = room.getUsers();
+                for (User user : users) {
                     writer.write(user.getName());
                     writer.write(" ");
-                    writer.write(user.getPassword());
-                    writer.write("\r\n");
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                writer.close();
-                writer = null;
+                writer.newLine();
             }
+            writer.close();
 
-            try {
-                outputFile = new File(RoomsFileName);
-                if (!outputFile.exists()) {
-                    outputFile.createNewFile();
-                }
-                writer = new FileWriter(outputFile);
-                for (Room room : this.rooms) {
-                    writer.write(room.getName());
+            // messages
+            outputFile = new File(MessagesFileName);
+            if (!outputFile.exists()) {
+                outputFile.createNewFile();
+            }
+            writer = new BufferedWriter(new FileWriter(outputFile));
+            for (Room room : this.rooms) {
+                for (Message message : room.getMessage()) {
+                    writer.write(message.getRoomName());
                     writer.write(" ");
-                    ArrayList<User> users = room.getUsers();
-                    for (User user : users) {
-                        writer.write(user.getName());
-                        writer.write(" ");
-                    }
-                    writer.write("\r\n");
+                    writer.write(message.getUserName());
+                    writer.write(" ");
+                    writer.write(message.getMessage());
+                    writer.write(" ");
+                    writer.write(String.valueOf(message.getDate()));
+                    writer.newLine();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                writer.close();
-                writer = null;
             }
+            writer.close();
 
-            try {
-                outputFile = new File(MessagesFileName);
-                if (!outputFile.exists()) {
-                    outputFile.createNewFile();
-                }
-                writer = new FileWriter(outputFile);
-                for (Room room : this.rooms) {
-                    for (Message message : room.getMessage()) {
-                        writer.write(message.getRoomName());
-                        writer.write(" ");
-                        writer.write(message.getUserName());
-                        writer.write(" ");
-                        String temp = message.getMessage().replace("&", "/amp");
-                        temp = temp.replaceAll(" +", "&");
-                        writer.write(temp);
-                        writer.write(" ");
-                        writer.write(String.valueOf(message.getDate()));
-                        writer.write("\r\n");
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                writer.close();
-                writer = null;
-            }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -314,7 +279,7 @@ public class Storage {
         this.writeToFile();
     }
 
-    public void userEnterRoom(Room room,User user){
+    public void userEnterRoom(Room room, User user) {
         if (!room.isParticipator(user)) {
             room.addUser(user);
             dirty++;
