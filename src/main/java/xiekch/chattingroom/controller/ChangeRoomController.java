@@ -13,6 +13,9 @@ import xiekch.chattingroom.service.ChattingService;
 @Controller
 public class ChangeRoomController {
     @Autowired
+    private ChattingService chattingService;
+
+    @Autowired
     private SimpMessagingTemplate template;
 
     @PostMapping("/create/room")
@@ -20,8 +23,8 @@ public class ChangeRoomController {
         System.out.println("create room");
         Room room = new Room(name);
         try {
-            if (ChattingService.getInstance().roomSignUp(room, (User) session.getAttribute("user"))) {
-                this.template.convertAndSend("/rooms/", "{\"create\": \"" + room.getName() + "\"}");
+            if (chattingService.roomSignUp(room, (User) session.getAttribute("user"))) {
+                template.convertAndSend("/rooms/", "{\"create\": \"" + room.getName() + "\"}");
                 return "redirect:/rooms";
             }
         } catch (RuntimeException e) {
@@ -36,10 +39,10 @@ public class ChangeRoomController {
         // String roomName = request.substring(0, request.indexOf('='));
         System.out.println("quit roomName: " + roomName);
         User user = (User) session.getAttribute("user");
-        Room room = ChattingService.getInstance().getRoom(roomName);
-        ChattingService.getInstance().userQuitRoom(room, user);
-        if (!ChattingService.getInstance().isRoom(roomName)) {
-            this.template.convertAndSend("/rooms/", "{\"delete\": \"" + roomName + "\"}");
+        Room room = chattingService.getRoom(roomName);
+        chattingService.userQuitRoom(room, user);
+        if (!chattingService.isRoom(roomName)) {
+            template.convertAndSend("/rooms/", "{\"delete\": \"" + roomName + "\"}");
         }
 
         return "redirect:/rooms";
@@ -51,8 +54,8 @@ public class ChangeRoomController {
         User user = (User) session.getAttribute("user");
         System.out.println("join roomName: " + roomName);
         try {
-            Room room = ChattingService.getInstance().getRoom(roomName);
-            ChattingService.getInstance().userEnterRoom(room, user);
+            Room room = chattingService.getRoom(roomName);
+            chattingService.userEnterRoom(room, user);
         } catch (Exception e) {
             System.out.println("room doesn't exist");
         }

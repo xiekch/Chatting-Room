@@ -14,16 +14,19 @@ import xiekch.chattingroom.service.ChattingService;
 @Controller
 public class ChattingController {
     @Autowired
+    private ChattingService chattingService;
+
+    @Autowired
     private SimpMessagingTemplate template;
 
     @ResponseBody
     @MessageMapping("/room/{roomName}")
     public void room(@RequestBody Message message, @DestinationVariable String roomName) {
         message.escape();
-        ChattingService.getInstance().userSpeak(message.getUserName(), message.getRoomName(), message.getMessage(),
+        chattingService.userSpeak(message.getUserName(), message.getRoomName(), message.getMessage(),
                 message.getDate());
 
-        this.template.convertAndSend("/room/" + roomName, message);
+        template.convertAndSend("/room/" + roomName, message);
     }
 
 }

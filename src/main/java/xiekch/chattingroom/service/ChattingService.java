@@ -3,20 +3,16 @@ package xiekch.chattingroom.service;
 import xiekch.chattingroom.domain.*;
 import java.util.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class ChattingService {
+    @Autowired
     private Storage storage;
-    private static ChattingService chatting;
 
-    private ChattingService() {
-        this.storage = Storage.getInstance();
-    }
-
-    public static ChattingService getInstance() {
-        if (chatting == null) {
-            chatting = new ChattingService();
-        }
-
-        return chatting;
+    public ChattingService() {
+        System.out.println("chatting service constructor");
     }
 
     public boolean userSignUp(final User user) {
@@ -37,11 +33,11 @@ public class ChattingService {
             throw new RuntimeException("User's password is not valid!");
         }
 
-        if (this.storage.isUser(user.getName())) {
+        if (storage.isUser(user.getName())) {
             throw new RuntimeException("User's name has been used!");
         }
 
-        this.storage.createUser(user);
+        storage.createUser(user);
         return true;
     }
 
@@ -55,11 +51,11 @@ public class ChattingService {
         if (!Validator.roomNameValid(room.getName())) {
             throw new RuntimeException("Room's name is not valid!");
         }
-        if (this.storage.isRoom(room.getName())) {
+        if (storage.isRoom(room.getName())) {
             throw new RuntimeException("Room's name has been used!");
         }
 
-        this.storage.createRoom(room, user);
+        storage.createRoom(room, user);
         return true;
     }
 
@@ -78,15 +74,15 @@ public class ChattingService {
         if (!this.isRoom(room.getName())) {
             throw new RuntimeException("Room does'nt exit!");
         }
-        this.storage.userEnterRoom(room,user);
-       
+        storage.userEnterRoom(room, user);
+
     }
 
     public void userQuitRoom(Room room, User user) {
         if (room.isParticipator(user)) {
             room.removeUser(user);
             if (room.isEmpty()) {
-                this.storage.deleteRoom(room);
+                storage.deleteRoom(room);
             }
         }
     }
@@ -94,13 +90,13 @@ public class ChattingService {
     public boolean isUser(User user) {
         if (user == null || user.getName() == null || user.getPassword() == null)
             return false;
-        return this.storage.isUser(user);
+        return storage.isUser(user);
     }
 
     public boolean isRoom(String roomName) {
         if (roomName == null)
             return false;
-        return this.storage.isRoom(roomName);
+        return storage.isRoom(roomName);
     }
 
     public boolean isRoomUser(Room room, User user) {
@@ -111,8 +107,7 @@ public class ChattingService {
     }
 
     public boolean isRoomUser(String roomName, User user) {
-        if (this.isRoom(roomName) && this.isUser(user)
-                && this.storage.getRoom(roomName).isParticipator(user)) {
+        if (this.isRoom(roomName) && this.isUser(user) && storage.getRoom(roomName).isParticipator(user)) {
             return true;
         }
         return false;
@@ -122,16 +117,16 @@ public class ChattingService {
         if (!this.isRoom(roomName)) {
             throw new RuntimeException("Room does'nt exit!");
         }
-        if (!this.storage.isUser(userName)) {
+        if (!storage.isUser(userName)) {
             throw new RuntimeException("User does'nt exit!");
         }
-        User user = this.storage.getUser(userName);
-        if (!this.storage.getRoom(roomName).isParticipator(user)) {
+        User user = storage.getUser(userName);
+        if (!storage.getRoom(roomName).isParticipator(user)) {
             throw new RuntimeException("User is not in the room!");
         }
 
         Message message = user.speak(roomName, mess, date);
-        this.storage.userSpeak(roomName, message);
+        storage.userSpeak(roomName, message);
         return message;
     }
 
@@ -140,7 +135,7 @@ public class ChattingService {
             throw new RuntimeException("Room does'nt exit!");
         }
 
-        return this.storage.getRoom(roomName);
+        return storage.getRoom(roomName);
     }
 
     public ArrayList<Room> getParticipatedRooms(User user) {
@@ -149,7 +144,7 @@ public class ChattingService {
         }
 
         ArrayList<Room> participatedRooms = new ArrayList<Room>();
-        ArrayList<Room> rooms = this.storage.getRooms();
+        ArrayList<Room> rooms = storage.getRooms();
         for (Room r : rooms) {
             if (r.isParticipator(user)) {
                 participatedRooms.add(r);
@@ -160,7 +155,7 @@ public class ChattingService {
 
     public ArrayList<Room> getRestRooms(User user) {
         ArrayList<Room> restRooms = new ArrayList<Room>();
-        ArrayList<Room> rooms = this.storage.getRooms();
+        ArrayList<Room> rooms = storage.getRooms();
         for (Room r : rooms) {
             if (!r.isParticipator(user)) {
                 restRooms.add(r);

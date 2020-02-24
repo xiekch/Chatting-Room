@@ -1,18 +1,22 @@
 package xiekch.chattingroom.domain;
 
 import java.util.ArrayList;
+
+import org.springframework.stereotype.Repository;
+
 import java.io.*;
 
+@Repository
 public class Storage {
     private ArrayList<Room> rooms;
     private ArrayList<User> users;
-    private static Storage storage;
+    private final static String dirName = "./data";
     private final static String RoomsFileName = "./data/Rooms.txt";
     private final static String UsersFileName = "./data/Users.txt";
     private final static String MessagesFileName = "./data/Messages.txt";
     private static int dirty = 0;
 
-    private Storage() {
+    public Storage() {
         this.rooms = new ArrayList<Room>();
         this.users = new ArrayList<User>();
         readFromFile();
@@ -23,6 +27,17 @@ public class Storage {
         BufferedReader reader = null;
         String inline = null;
         String[] text = null;
+
+        try {
+            File dir = new File(dirName);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
         try {
             // users
             inputFile = new File(UsersFileName);
@@ -38,7 +53,8 @@ public class Storage {
                     this.users.add(new User(text[0], text[1]));
                 }
             }
-            reader.close();
+            if (reader != null)
+                reader.close();
 
             // rooms
             inputFile = new File(RoomsFileName);
@@ -59,7 +75,8 @@ public class Storage {
                     }
                 }
             }
-            reader.close();
+            if (reader != null)
+                reader.close();
 
             // messages
             inputFile = new File(MessagesFileName);
@@ -77,8 +94,9 @@ public class Storage {
                     room.addMessage(message);
                 }
             }
-            reader.close();
-            
+            if (reader != null)
+                reader.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -103,7 +121,8 @@ public class Storage {
                 writer.write(user.getPassword());
                 writer.newLine();
             }
-            writer.close();
+            if (writer != null)
+                writer.close();
 
             // rooms
             outputFile = new File(RoomsFileName);
@@ -121,7 +140,8 @@ public class Storage {
                 }
                 writer.newLine();
             }
-            writer.close();
+            if (writer != null)
+                writer.close();
 
             // messages
             outputFile = new File(MessagesFileName);
@@ -141,18 +161,12 @@ public class Storage {
                     writer.newLine();
                 }
             }
-            writer.close();
+            if (writer != null)
+                writer.close();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static Storage getInstance() {
-        if (storage == null) {
-            storage = new Storage();
-        }
-        return storage;
     }
 
     public void createRoom(Room room, User user) {

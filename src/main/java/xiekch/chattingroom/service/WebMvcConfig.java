@@ -1,17 +1,20 @@
 package xiekch.chattingroom.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer{
+public class WebMvcConfig implements WebMvcConfigurer {
+    @Autowired
+    private UserInterceptor userInterceptor;
 
     @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/rooms");
-        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/room");
-        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/create/room");
-        registry.addInterceptor(new UserInterceptor()).addPathPatterns("/logOut");
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(userInterceptor).addPathPatterns("/rooms");
+        registry.addInterceptor(userInterceptor).addPathPatterns("/room");
+        registry.addInterceptor(userInterceptor).addPathPatterns("/create/room");
+        registry.addInterceptor(userInterceptor).addPathPatterns("/logOut");
     }
 }
